@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\IRepository.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -60,8 +61,10 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\ClikedEvent.cs" />
+    <Compile Include="Model\Context\TicketContextInitializer.cs" />
     <Compile Include="Model\EventCategory.cs" />
     <Compile Include="Model\Opinion.cs" />
+    <Compile Include="Model\Context\TicketContext.cs" />
     <Compile Include="Model\TicketEvent.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\ViewedTicketEventDate.cs" />
@@ -94,7 +97,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DAL\" />
     <Folder Include="ViewModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
