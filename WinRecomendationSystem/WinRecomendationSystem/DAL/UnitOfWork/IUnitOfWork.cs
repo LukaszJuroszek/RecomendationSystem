@@ -1,6 +1,6 @@
 ﻿namespace WinRecomendationSystem.DAL
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork 
     {
         Repository<ClikedEventRepository> ClikedEventRepository { get; }
         Repository<EventCategoryRepository> EventCategoryRepository { get; }

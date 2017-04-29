@@ -5,9 +5,9 @@ using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
 {
-   public class TicketEventRepository : IRepository<TicketEvent>
+   public class TicketEventRepository : Repository<TicketEvent>
     {
-        public TicketEventRepository()
+        public TicketEventRepository(TicketContext context) : base(context)
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
         }

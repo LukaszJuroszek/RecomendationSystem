@@ -5,31 +5,31 @@ using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
 {
-    public class ViewedTicketEventDateRepository : IRepository<ViewedTicketEventDate>
+    public class ViewedTicketEventDateRepository : Repository<ViewedTicketEventDate>
     {
-        public ViewedTicketEventDateRepository()
+        public ViewedTicketEventDateRepository(TicketContext context) : base(context)
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
         }
-        public void Add(ViewedTicketEventDate element)
+        public override void Add(ViewedTicketEventDate element)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(ViewedTicketEventDate element)
+        public override void Delete(ViewedTicketEventDate element)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(ViewedTicketEventDate element)
+        public override void Edit(ViewedTicketEventDate element)
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<ViewedTicketEventDate> GetAll()
+        public override IEnumerable<ViewedTicketEventDate> GetAll()
         {
             throw new NotImplementedException();
         }
-        public ViewedTicketEventDate GetByID(int id)
+        public override ViewedTicketEventDate GetByID(int id)
         {
             throw new NotImplementedException();
         }

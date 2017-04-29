@@ -8,22 +8,17 @@ namespace WinRecomendationSystem.DAL
     public class Repository<T> : IRepository<T>, IDisposable where T : class
     {
         protected TicketContext _context;
-
-        //DbSet usable with any of our entity types
         protected DbSet<T> dbSet;
-
-        //constructor taking the database context and getting the appropriately typed data set from it
         public Repository(TicketContext context)
         {
             _context = context;
             dbSet = context.Set<T>();
         }
-        //Implementation of IRepository methods
-        public T GetByID(int id)
+        public virtual T GetByID(int id)
         {
             return dbSet.Find(id);
         }
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return dbSet;
         }
@@ -44,12 +39,8 @@ namespace WinRecomendationSystem.DAL
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
-            {
                 if (disposing)
-                {
                    _context.Dispose();
-                }
-            }
         }
         public void Dispose()
         {

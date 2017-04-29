@@ -9,6 +9,7 @@ namespace WinRecomendationSystem.DAL
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
+        //used http://panictheorem.net/Blog/Repository-And-Unit-Of-Work
         private TicketContext _dbContext = new TicketContext();
 
         private Repository<ClikedEventRepository> _clikedEventRepository;
@@ -60,16 +61,11 @@ namespace WinRecomendationSystem.DAL
                 return _viewedTicketEventDateRepository ?? new Repository<ViewedTicketEventDateRepository>(_dbContext);
             }
         }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
-            {
                 if (disposing)
-                {
                     _dbContext.Dispose();
-                }
-            }
         }
         public void Dispose()
         {

@@ -5,33 +5,33 @@ using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
 {
-    public class OpinionRepository : IRepository<Opinion>
+    public class OpinionRepository : Repository<Opinion>
     {
-        public OpinionRepository()
+        public OpinionRepository(TicketContext context) : base(context)
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
         }
-        public void Add(Opinion element)
+        public override void Add(Opinion element)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Opinion element)
+        public override void Delete(Opinion element)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(Opinion element)
+        public override void Edit(Opinion element)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Opinion> GetAll()
+        public override IEnumerable<Opinion> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Opinion GetByID(int id)
+        public override Opinion GetByID(int id)
         {
             throw new NotImplementedException();
         }

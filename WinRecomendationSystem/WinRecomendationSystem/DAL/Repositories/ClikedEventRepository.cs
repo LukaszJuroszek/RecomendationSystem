@@ -5,41 +5,35 @@ using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
 {
-    public class ClikedEventRepository : IRepository<ClikedEvent>
+    public class ClikedEventRepository : Repository<ClikedEvent>
     {
-        public ClikedEventRepository()
+        public ClikedEventRepository(TicketContext context) : base(context)
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
         }
-        public void Add(ClikedEvent element)
+        public override void Add(ClikedEvent element)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(ClikedEvent element)
+        public override void Delete(ClikedEvent element)
         {
             throw new NotImplementedException();
         }
 
-        public void Edit(ClikedEvent element)
+        public override void Edit(ClikedEvent element)
         {
             throw new NotImplementedException();
         }
 
-        public IEquatable<ClikedEvent> GetAll()
+        public override IEnumerable<ClikedEvent> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public ClikedEvent GetByID(int id)
+        public override ClikedEvent GetByID(int id)
         {
             throw new NotImplementedException();
         }
-
-        IEnumerable<ClikedEvent> IRepository<ClikedEvent>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-   
     }
 }

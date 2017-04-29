@@ -4,9 +4,9 @@ using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : Repository<User>
     {
-        public UserRepository()
+        public UserRepository(TicketContext context) : base(context)
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
         }
