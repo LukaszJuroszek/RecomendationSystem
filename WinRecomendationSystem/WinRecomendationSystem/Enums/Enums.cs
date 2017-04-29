@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinRecomendationSystem.Model
+namespace WinRecomendationSystem.Enums
 {
-    class ViewedTickedEventDate
+    public enum EventOpinion
     {
+        Like,
+        NotLike,
+        DontKnow
     }
 }

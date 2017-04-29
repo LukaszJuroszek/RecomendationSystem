@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using WinRecomendationSystem.Enums;
 
 namespace WinRecomendationSystem.Model
 {
-    class Opinion
+    public class Opinion
     {
+        public int Id { get; set; }
+        public EventOpinion EventOpinion { get; set; }
+        public virtual User User { get; set; }
+        public virtual TicketEvent TicketEvents { get; set; }
     }
 }

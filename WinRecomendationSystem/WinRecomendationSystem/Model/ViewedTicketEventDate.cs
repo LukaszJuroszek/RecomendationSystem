@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WinRecomendationSystem.Model
 {
-    class TickedEvent
+    public class ViewedTicketEventDate
     {
+        public int Id { get; set; }
+        public DateTime WhenCliked{ get; set; }
     }
 }

@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WinRecomendationSystem.Model
 {
-    class ClikedEvent
+    public class ClikedEvent
     {
+        public int Id { get; set; }
+        public virtual TicketEvent TicketEvent { get; set; }
+        public ICollection<  ViewedTicketEventDate >ViewedTicketEventDate { get; set; }
+        public ClikedEvent()
+        {
+            ViewedTicketEventDate = new HashSet<ViewedTicketEventDate>();
+        }
     }
 }

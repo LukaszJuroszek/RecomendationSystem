@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace WinRecomendationSystem.Model
 {
-    public class EventCategory
+    public class TicketEvent
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public virtual EventCategory EventCategory { get; set; }
+        public DateTime Date{ get; set; }
+        public string Lokalizacja { get; set; }
     }
 }
