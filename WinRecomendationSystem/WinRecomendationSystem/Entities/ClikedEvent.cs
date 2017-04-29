@@ -6,6 +6,7 @@ namespace WinRecomendationSystem.Model
     {
         public int Id { get; set; }
         public virtual TicketEvent TicketEvent { get; set; }
+        public virtual User User { get; set; }
         public ICollection<  ViewedTicketEventDate >ViewedTicketEventDate { get; set; }
         public ClikedEvent()
         {

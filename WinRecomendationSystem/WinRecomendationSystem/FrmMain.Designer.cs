@@ -41,7 +41,6 @@
             this.listView1.Size = new System.Drawing.Size(770, 351);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Tile;
             // 
             // FrmMain
             // 
@@ -49,6 +48,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(866, 375);
             this.Controls.Add(this.listView1);
+            this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.Name = "FrmMain";
             this.Text = "FrmMain";
             this.ResumeLayout(false);

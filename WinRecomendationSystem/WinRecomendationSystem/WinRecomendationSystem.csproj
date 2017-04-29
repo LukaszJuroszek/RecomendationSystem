@@ -52,7 +52,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\Repositories\ClikedEventRepository.cs" />
+    <Compile Include="DAL\Repositories\EventCategoryRepository.cs" />
+    <Compile Include="DAL\Repositories\OpinionRepository.cs" />
+    <Compile Include="DAL\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="DAL\UnitOfWork\Repository.cs" />
+    <Compile Include="DAL\Repositories\TicketEventRepository.cs" />
+    <Compile Include="DAL\UnitOfWork\IRepository.cs" />
+    <Compile Include="DAL\Repositories\UserRepository.cs" />
+    <Compile Include="DAL\Repositories\ViewedTicketEventDateRepository.cs" />
+    <Compile Include="DAL\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -60,16 +69,21 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\ClikedEvent.cs" />
-    <Compile Include="Model\Context\TicketContextInitializer.cs" />
-    <Compile Include="Model\EventCategory.cs" />
-    <Compile Include="Model\Opinion.cs" />
-    <Compile Include="Model\Context\TicketContext.cs" />
-    <Compile Include="Model\TicketEvent.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="Model\ViewedTicketEventDate.cs" />
+    <Compile Include="Entities\ClikedEvent.cs" />
+    <Compile Include="DAL\Context\TicketContextInitializer.cs" />
+    <Compile Include="Entities\EventCategory.cs" />
+    <Compile Include="Entities\Opinion.cs" />
+    <Compile Include="DAL\Context\TicketContext.cs" />
+    <Compile Include="Entities\TicketEvent.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\ViewedTicketEventDate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +106,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.xsc">
+      <DependentUpon>TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.xss">
+      <DependentUpon>TICKET_740c26a4978d4e50a7cef6f03ed13b98DataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinRecomendationSystem.DAL;
 
 namespace WinRecomendationSystem
 {
@@ -14,6 +15,8 @@ namespace WinRecomendationSystem
     {
         public FrmMain()
         {
+            var repo = new TicketEventRepository();
+            repo.GetAll();
             InitializeComponent();
         }
     }
