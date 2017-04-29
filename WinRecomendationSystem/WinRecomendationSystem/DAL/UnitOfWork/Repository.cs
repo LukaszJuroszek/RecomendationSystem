@@ -11,6 +11,7 @@ namespace WinRecomendationSystem.DAL
         protected DbSet<T> dbSet;
         public Repository(TicketContext context)
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
             _context = context;
             dbSet = context.Set<T>();
         }

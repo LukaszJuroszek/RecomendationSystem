@@ -7,10 +7,7 @@ namespace WinRecomendationSystem.DAL
 {
     public class OpinionRepository : Repository<Opinion>
     {
-        public OpinionRepository(TicketContext context) : base(context)
-        {
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
-        }
+        public OpinionRepository(TicketContext context) : base(context) { }
         public override void Add(Opinion element)
         {
             throw new NotImplementedException();

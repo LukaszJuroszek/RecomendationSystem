@@ -15,8 +15,8 @@ namespace WinRecomendationSystem
     {
         public FrmMain()
         {
-            var repo = new TicketEventRepository();
-            repo.GetAll();
+            var repo = new UnitOfWork();
+            var p = repo.UserRepository.GetAll();
             InitializeComponent();
         }
     }

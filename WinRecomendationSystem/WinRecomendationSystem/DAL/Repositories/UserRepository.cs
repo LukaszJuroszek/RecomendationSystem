@@ -1,37 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
 {
     public class UserRepository : Repository<User>
     {
-        public UserRepository(TicketContext context) : base(context)
+        public UserRepository(TicketContext context) : base(context) { }
+        public override void Add(User element)
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
+            throw new NotImplementedException();
         }
-        public void Add(User element)
+        public override void Delete(User element)
         {
             throw new NotImplementedException();
         }
 
-
-        public void Delete(User element)
+        public override void Edit(User element)
         {
             throw new NotImplementedException();
         }
-
-        public void Edit(User element)
+        public override IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+               return _context.Users.Select(x=>x);
         }
-
-        public IEnumerable<User> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public User GetByID(int id)
+        public override User GetByID(int id)
         {
             throw new NotImplementedException();
         }

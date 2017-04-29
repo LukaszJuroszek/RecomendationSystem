@@ -7,20 +7,15 @@ namespace WinRecomendationSystem.DAL
 {
     public class ViewedTicketEventDateRepository : Repository<ViewedTicketEventDate>
     {
-        public ViewedTicketEventDateRepository(TicketContext context) : base(context)
-        {
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
-        }
+        public ViewedTicketEventDateRepository(TicketContext context) : base(context) { }
         public override void Add(ViewedTicketEventDate element)
         {
             throw new NotImplementedException();
         }
-
         public override void Delete(ViewedTicketEventDate element)
         {
             throw new NotImplementedException();
         }
-
         public override void Edit(ViewedTicketEventDate element)
         {
             throw new NotImplementedException();

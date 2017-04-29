@@ -5,10 +5,7 @@ namespace WinRecomendationSystem.DAL
 {
     public class EventCategoryRepository : Repository<EventCategory>
     {
-        public EventCategoryRepository(TicketContext context) : base(context)
-        {
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
-        }
+        public EventCategoryRepository(TicketContext context) : base(context) { }
         public override void Add(EventCategory element)
         {
             throw new NotImplementedException();

@@ -7,34 +7,26 @@ namespace WinRecomendationSystem.DAL
 {
    public class TicketEventRepository : Repository<TicketEvent>
     {
-        public TicketEventRepository(TicketContext context) : base(context)
-        {
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
-        }
+        public TicketEventRepository(TicketContext context) : base(context) { }
         public void Add(TicketEvent element)
         {
             throw new NotImplementedException();
         }
-
-
         public void Delete(TicketEvent element)
         {
             throw new NotImplementedException();
         }
-
         public void Edit(TicketEvent element)
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<TicketEvent> GetAll()
+        public override IEnumerable<TicketEvent> GetAll()
         {
-            using (var db =new TicketContext())
+            using (_context)
             {
-                return db.TicketEvents.Select(x=>x);
+                return _context.TicketEvents.Select(x => x);
             }
         }
-
         public TicketEvent GetByID(int id)
         {
             throw new NotImplementedException();
