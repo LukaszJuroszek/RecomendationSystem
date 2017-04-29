@@ -28,27 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView = new System.Windows.Forms.ListView();
+            this.EventType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.EventCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // listView1
+            // listView
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Location = new System.Drawing.Point(3, 12);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(770, 351);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.EventType,
+            this.EventCategory});
+            this.listView.Location = new System.Drawing.Point(3, 12);
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(770, 351);
+            this.listView.TabIndex = 0;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            // 
+            // EventType
+            // 
+            this.EventType.Text = "EventType";
+            this.EventType.Width = 105;
+            // 
+            // EventCategory
+            // 
+            this.EventCategory.Text = "EventCategory";
+            this.EventCategory.Width = 124;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(866, 375);
-            this.Controls.Add(this.listView1);
-            this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Controls.Add(this.listView);
             this.Name = "FrmMain";
             this.Text = "FrmMain";
             this.ResumeLayout(false);
@@ -57,7 +72,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView;
+        private System.Windows.Forms.ColumnHeader EventType;
+        private System.Windows.Forms.ColumnHeader EventCategory;
     }
 }
 
