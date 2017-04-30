@@ -20,28 +20,28 @@ namespace WinRecomendationSystem.ViewModel
         }
         public void AddClikedEvent(ShowTicketClickedViewModel model)
         {
-            Expression<Func<ClikedEvent, bool>> FilterByNameLength()
+            Expression<Func<ClikedEvent, bool>> FilterByShowTicketClikedCiewModel()
             {
-                return x => (x.Id == model.TicketEvent.Id);
+                return x => x.Id == model.TicketEvent.Id;
             }
-            var exsClickedEvent = _unitOfWork.ClikedEventRepository.Filter(FilterByNameLength());
+            var exsClickedEvent = _unitOfWork.ClikedEventRepository.Filter(FilterByShowTicketClikedCiewModel());
             if (exsClickedEvent.Count() != 0)
-            {
                 exsClickedEvent.First().ViewedTicketEventDates.Add(model.DateCliked);
-            }
             else
-            {
                 _unitOfWork.ClikedEventRepository.Add(new ClikedEvent
                 {
                     TicketEvent = model.TicketEvent,
                     User = model.User,
                     ViewedTicketEventDates = new List<DateTime>() { model.DateCliked }
                 });
-            }
         }
-        public bool CheckIfIdIsEq(ClikedEvent clikedEvent, ShowTicketClickedViewModel model)
+        public TicketEvent GetTicketEventById(int id)
         {
-            return clikedEvent.Id == model.TicketEvent.Id;
+            Expression<Func<TicketEvent, bool>> FilterTicketEventById()
+            {
+                return x => x.Id == id;
+            }
+            return _unitOfWork.TicketEventRepository.Filter(FilterTicketEventById()).First();
         }
     }
 }

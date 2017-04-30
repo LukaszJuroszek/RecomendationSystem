@@ -39,6 +39,7 @@ namespace WinRecomendationSystem
             foreach (var item in mainViewModel.TicketEvents)
             {
                 var lv = new ListViewItem() { Text = item.Title.ToString() };
+                lv.Tag = item.Id;
                 lv.SubItems.Add(item.EventCategory.ToString());
                 lv.SubItems.Add(item.Localization.ToString());
                 lv.SubItems.Add(item.Date.ToShortDateString());
@@ -47,15 +48,16 @@ namespace WinRecomendationSystem
         }
         private void btnShow_Click(object sender, System.EventArgs e)
         {
+      var tickedEvent = _mainViewModel.GetTicketEventById(int.Parse(listView.SelectedItems[0].Tag.ToString()));
             var showTicketViewModel = new ShowTicketViewModel()
             {
-                Title = listView.SelectedItems[0].Text,
-                Location = listView.SelectedItems[1].Text,
-                Date = DateTime.Parse(listView.SelectedItems[2].Text)
+                TicketEvent = tickedEvent,
+                User = _mainViewModel.Users.First() // for one user
             };
             var frmShowTicket = new FrmShowTicket(showTicketViewModel);
             if (frmShowTicket.ShowDialog() == DialogResult.OK)
             {
+                _mainViewModel.AddClikedEvent(frmShowTicket._showTicketClickedViewModel);
                 //_mainViewModel.Add(showTicketViewModel);
                 //dodawanie (przepisać z viewmodelu do encji)
             }

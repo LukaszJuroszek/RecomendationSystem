@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
@@ -13,6 +11,7 @@ namespace WinRecomendationSystem.DAL
         protected TicketContext _context;
         public Repository(TicketContext context)
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
             _context = context;
         }
         public virtual void Add(TEntity entity)
