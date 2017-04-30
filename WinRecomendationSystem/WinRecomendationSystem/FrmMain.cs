@@ -1,22 +1,38 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
-using WinRecomendationSystem.DAL;
 using WinRecomendationSystem.ViewModel;
 
 namespace WinRecomendationSystem
 {
     public partial class FrmMain : Form
     {
+        private MainViewModel _mainViewModel;
         public FrmMain()
         {
-            var repo = new UnitOfWork();
-            /
-            var p = repo.UserRepository.GetAll();
-            this.listView = new ListView();
-            var s = new FrmMainViewModel(repo);
-            var ss= s.TicketEvents.ToArray();
-            var sss= s.Users.ToArray();
+            _mainViewModel = new MainViewModel();
+           
             InitializeComponent();
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            const string message = "Are you sure that you would like to exit ?";
+            const string caption = "Cancel exit";
+            var result = MessageBox.Show(message, caption,
+                             MessageBoxButtons.YesNo,
+                             MessageBoxIcon.Question);
+            e.Cancel = (result == DialogResult.No);
+        }
+        private void FrmMain_Load(object sender, System.EventArgs e)
+        {
+            var lv = new ListViewItem();
+            foreach (var item in _mainViewModel.TicketEvents)
+            {
+            lv.Text = item.Localization;
+            lv.SubItems.Add(item.EventCategory.Name);
+            lv.SubItems.Add(item.Date.ToShortDateString());
+                listView.Items.Add(lv);
+            }
+
         }
     }
 }

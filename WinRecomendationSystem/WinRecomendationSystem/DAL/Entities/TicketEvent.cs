@@ -6,6 +6,6 @@ namespace WinRecomendationSystem.Entities
         public int Id { get; set; }
         public virtual EventCategory EventCategory { get; set; }
         public DateTime Date{ get; set; }
-        public string Lokalizacja { get; set; }
+        public string Localization { get; set; }
     }
 }
