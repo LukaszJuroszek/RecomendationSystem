@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using WinRecomendationSystem.ViewModel;
 
@@ -10,7 +11,6 @@ namespace WinRecomendationSystem
         public FrmMain()
         {
             _mainViewModel = new MainViewModel();
-           
             InitializeComponent();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -24,15 +24,41 @@ namespace WinRecomendationSystem
         }
         private void FrmMain_Load(object sender, System.EventArgs e)
         {
-            var lv = new ListViewItem();
-            foreach (var item in _mainViewModel.TicketEvents)
+            ViewEvents(_mainViewModel);
+            SetAutoAdjustColumnSize();
+        }
+        private void SetAutoAdjustColumnSize()
+        {
+            for (int i = 0; i < listView.Columns.Count; i++)
             {
-            lv.Text = item.Localization;
-            lv.SubItems.Add(item.EventCategory.ToString());
-            lv.SubItems.Add(item.Date.ToShortDateString());
+                listView.Columns[i].Width = -2;
+            }
+        }
+        private void ViewEvents(MainViewModel mainViewModel)
+        {
+            foreach (var item in mainViewModel.TicketEvents)
+            {
+                var lv = new ListViewItem() { Text = item.Title.ToString() };
+                lv.SubItems.Add(item.EventCategory.ToString());
+                lv.SubItems.Add(item.Localization.ToString());
+                lv.SubItems.Add(item.Date.ToShortDateString());
                 listView.Items.Add(lv);
             }
-
+        }
+        private void btnShow_Click(object sender, System.EventArgs e)
+        {
+            var showTicketViewModel = new ShowTicketViewModel()
+            {
+                Title = listView.SelectedItems[0].Text,
+                Location = listView.SelectedItems[1].Text,
+                Date = DateTime.Parse(listView.SelectedItems[2].Text)
+            };
+            var frmShowTicket = new FrmShowTicket(showTicketViewModel);
+            if (frmShowTicket.ShowDialog() == DialogResult.OK)
+            {
+                //_mainViewModel.Add(showTicketViewModel);
+                //dodawanie (przepisać z viewmodelu do encji)
+            }
         }
     }
 }

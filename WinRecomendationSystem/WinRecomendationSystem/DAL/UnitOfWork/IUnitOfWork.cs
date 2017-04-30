@@ -9,7 +9,6 @@ namespace WinRecomendationSystem.DAL
         IRepository<Opinion> OpinionRepository { get; }
         IRepository<TicketEvent> TicketEventRepository { get; }
         IRepository<User> UserRepository { get; }
-        IRepository<ViewedTicketEventDate> ViewedTicketEventDateRepository { get; }
         void Commit();
         void Dispose();
     }

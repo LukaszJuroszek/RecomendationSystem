@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Linq;
 using WinRecomendationSystem.Entities;
 
 namespace WinRecomendationSystem.Model.Context
@@ -24,9 +23,16 @@ namespace WinRecomendationSystem.Model.Context
             context.TicketEvents.Add(new TicketEvent
             {
                 Date = DateTime.Now.Add(TimeSpan.FromDays(23)),
-                EventCategory = Enums.EventCategory.Muzka,
+                EventCategory = Enums.EventCategory.Rodzina,
+                Localization = "InoWrc",
+                Title = "Rodzina 500+"
+            });
+            context.TicketEvents.Add(new TicketEvent
+            {
+                Date = DateTime.Now.Add(TimeSpan.FromDays(23)),
+                EventCategory = Enums.EventCategory.Biznes,
                 Localization = "Warsaw",
-                Title = "Koncert Maryli"
+                Title = ".netEvent"
             });
 
         }

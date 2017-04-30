@@ -10,7 +10,6 @@ namespace WinRecomendationSystem.Model
         public DbSet<ClikedEvent> ClikedEvents { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
         public DbSet<TicketEvent> TicketEvents { get; set; }
-        public DbSet<ViewedTicketEventDate> ViewedTicketEventDates { get; set; }
         public TicketContext()
         {
             Database.SetInitializer(new TicketContextInitializer());

@@ -69,12 +69,22 @@
     <Compile Include="DAL\Context\TicketContext.cs" />
     <Compile Include="DAL\Entities\TicketEvent.cs" />
     <Compile Include="DAL\Entities\User.cs" />
-    <Compile Include="DAL\Entities\ViewedTicketEventDate.cs" />
+    <Compile Include="FrmShowTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmShowTicket.Designer.cs">
+      <DependentUpon>FrmShowTicket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\FrmMainViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ShowTicketClickedViewModel.cs" />
+    <Compile Include="ViewModel\ShowTicketViewModel.cs" />
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmShowTicket.resx">
+      <DependentUpon>FrmShowTicket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

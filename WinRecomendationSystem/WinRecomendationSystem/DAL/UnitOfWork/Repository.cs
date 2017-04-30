@@ -2,51 +2,39 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
 {
-    public class Repository<T> : IRepository<T>, IDisposable where T : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected TicketContext _context;
-        protected DbSet<T> _dbSet;
-        private bool disposed = false;
         public Repository(TicketContext context)
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
             _context = context;
-            _dbSet = context.Set<T>();
         }
-        public virtual void Add(T entity)
+        public virtual void Add(TEntity entity)
         {
-            _dbSet.Add(entity);
+            _context.Set<TEntity>().Add(entity);
         }
-        public virtual IQueryable<T> GetAll()
+        public virtual IQueryable<TEntity> All()
         {
-            return _dbSet;
+            return _context.Set<TEntity>();
         }
-        public virtual void Delete(T entity)
+        public virtual void Delete(TEntity entity)
         {
-            _dbSet.Remove(entity);
+            _context.Set<TEntity>().Remove(entity);
         }
-        public virtual void Update(T element)
+        public IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
+        {
+            return All().Where(predicate);
+        }
+        public virtual void Update(TEntity element)
         {
             _context.Entry(element).State = EntityState.Modified;
-        }
-        public virtual T GetByID(int id)
-        {
-            return _dbSet.Find(id);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-                if (disposing)
-                    _context.Dispose();
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            _context.SaveChanges();
         }
     }
 }

@@ -13,7 +13,6 @@ namespace WinRecomendationSystem.DAL
         private Repository<Opinion> _opinionRepository;
         private Repository<TicketEvent> _ticketEventRepository;
         private Repository<User> _userRepository;
-        private Repository<ViewedTicketEventDate> _viewedTicketEventDateRepository;
         public void Commit()
         {
             _dbContext.SaveChanges();
@@ -29,9 +28,6 @@ namespace WinRecomendationSystem.DAL
         }
         public IRepository<User> UserRepository {
             get { return _userRepository ?? new Repository<User>(_dbContext); }
-        }
-        public IRepository<ViewedTicketEventDate> ViewedTicketEventDateRepository {
-            get { return _viewedTicketEventDateRepository ?? new Repository<ViewedTicketEventDate>(_dbContext); }
         }
         protected virtual void Dispose(bool disposing)
         {
