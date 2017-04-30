@@ -48,16 +48,17 @@ namespace WinRecomendationSystem
         }
         private void btnShow_Click(object sender, System.EventArgs e)
         {
-      var tickedEvent = _mainViewModel.GetTicketEventById(int.Parse(listView.SelectedItems[0].Tag.ToString()));
+            var tickedEvent = _mainViewModel.GetTicketEventById(int.Parse(listView.SelectedItems[0].Tag.ToString()));
             var showTicketViewModel = new ShowTicketViewModel()
             {
                 TicketEvent = tickedEvent,
                 User = _mainViewModel.Users.First() // for one user
             };
             var frmShowTicket = new FrmShowTicket(showTicketViewModel);
-            if (frmShowTicket.ShowDialog() == DialogResult.OK)
+            if (frmShowTicket.ShowDialog() == DialogResult.Cancel)
             {
-                _mainViewModel.AddClikedEvent(frmShowTicket._showTicketClickedViewModel);
+                _mainViewModel.AddClikedEvent(frmShowTicket._showClickedTicketViewModel);
+                _mainViewModel.AddOpinion(frmShowTicket._opinionViewModel);
                 //_mainViewModel.Add(showTicketViewModel);
                 //dodawanie (przepisać z viewmodelu do encji)
             }

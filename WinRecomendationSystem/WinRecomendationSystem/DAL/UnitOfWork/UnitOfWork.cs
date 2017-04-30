@@ -1,4 +1,5 @@
 ﻿using System;
+using WinRecomendationSystem.DAL.Entities;
 using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Model;
 
@@ -13,6 +14,8 @@ namespace WinRecomendationSystem.DAL
         private Repository<Opinion> _opinionRepository;
         private Repository<TicketEvent> _ticketEventRepository;
         private Repository<User> _userRepository;
+        private Repository<ClikedEventDate> _clikedEventDate;
+        
         public void Commit()
         {
             _dbContext.SaveChanges();
@@ -28,6 +31,9 @@ namespace WinRecomendationSystem.DAL
         }
         public IRepository<User> UserRepository {
             get { return _userRepository ?? new Repository<User>(_dbContext); }
+        }
+        public IRepository<ClikedEventDate> ClikedEventDate {
+            get { return _clikedEventDate ?? new Repository<ClikedEventDate>(_dbContext); }
         }
         protected virtual void Dispose(bool disposing)
         {

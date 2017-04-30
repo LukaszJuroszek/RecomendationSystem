@@ -3,8 +3,8 @@
     public enum EventOpinion
     {
         Like,
-        NotLike,
-        DontKnow
+        DontLike,
+        Normal
     }
     public enum EventCategory
     {

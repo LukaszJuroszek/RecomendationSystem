@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using WinRecomendationSystem.DAL;
+using WinRecomendationSystem.DAL.Entities;
 using WinRecomendationSystem.Entities;
+using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.ViewModel
 {
@@ -18,22 +20,33 @@ namespace WinRecomendationSystem.ViewModel
             TicketEvents = _unitOfWork.TicketEventRepository.All();
             Users = _unitOfWork.UserRepository.All();
         }
-        public void AddClikedEvent(ShowTicketClickedViewModel model)
+        public void AddOpinion(OpinionViewModel model)
         {
-            Expression<Func<ClikedEvent, bool>> FilterByShowTicketClikedCiewModel()
-            {
-                return x => x.Id == model.TicketEvent.Id;
-            }
-            var exsClickedEvent = _unitOfWork.ClikedEventRepository.Filter(FilterByShowTicketClikedCiewModel());
+            var exsOpinion = _unitOfWork.OpinionRepository.Filter(x => x.TicketEvents.Id == model.TicketEvents.Id).ToList();
+            if (exsOpinion.Count() != 0)//if opinion exist
+                exsOpinion.First().EventOpinion = model.EventOpinion;
+            else
+                _unitOfWork.OpinionRepository.Add(new Opinion
+                {
+                    EventOpinion = model.EventOpinion,
+                    TicketEvents = model.TicketEvents,
+                    User = model.User
+                });
+            _unitOfWork.Commit();
+        }
+        public void AddClikedEvent(ShowClickedTicketViewModel model)
+        {
+            var exsClickedEvent = _unitOfWork.ClikedEventRepository.Filter(x => x.TicketEvent.Id == model.TicketEvent.Id);
             if (exsClickedEvent.Count() != 0)
-                exsClickedEvent.First().ViewedTicketEventDates.Add(model.DateCliked);
+                exsClickedEvent.First().ViewedTicketEventDates.Add(new ClikedEventDate { WhenClicked = model.WhenClicked });
             else
                 _unitOfWork.ClikedEventRepository.Add(new ClikedEvent
                 {
                     TicketEvent = model.TicketEvent,
                     User = model.User,
-                    ViewedTicketEventDates = new List<DateTime>() { model.DateCliked }
+                    ViewedTicketEventDates = new List<ClikedEventDate>() { new ClikedEventDate { WhenClicked = model.WhenClicked } }
                 });
+            _unitOfWork.Commit();
         }
         public TicketEvent GetTicketEventById(int id)
         {

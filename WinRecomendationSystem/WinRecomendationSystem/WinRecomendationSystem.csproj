@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\Entities\ClikedEventDate.cs" />
     <Compile Include="DAL\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="DAL\UnitOfWork\Repository.cs" />
     <Compile Include="DAL\UnitOfWork\IRepository.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\OpinionViewModel.cs" />
     <Compile Include="ViewModel\ShowTicketClickedViewModel.cs" />
     <Compile Include="ViewModel\ShowTicketViewModel.cs" />
     <EmbeddedResource Include="FrmMain.resx">
