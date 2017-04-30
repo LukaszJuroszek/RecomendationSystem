@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WinRecomendationSystem.Model
+﻿namespace WinRecomendationSystem.Entities
 {
     public class EventCategory
     {

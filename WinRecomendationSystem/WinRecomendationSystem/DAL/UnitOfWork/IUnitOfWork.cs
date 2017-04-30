@@ -1,13 +1,17 @@
-﻿namespace WinRecomendationSystem.DAL
+﻿using WinRecomendationSystem.Entities;
+using WinRecomendationSystem.Model;
+
+namespace WinRecomendationSystem.DAL
 {
     public interface IUnitOfWork
     {
-        ClikedEventRepository ClikedEventRepository { get; }
-        EventCategoryRepository EventCategoryRepository { get; }
-        OpinionRepository OpinionRepository { get; }
-        TicketEventRepository TicketEventRepository { get; }
-        UserRepository UserRepository { get; }
-        ViewedTicketEventDateRepository ViewedTicketEventDateRepository { get; }
+        IRepository<ClikedEvent> ClikedEventRepository { get; }
+        IRepository<EventCategory> EventCategoryRepository { get; }
+        IRepository<Opinion> OpinionRepository { get; }
+        IRepository<TicketEvent> TicketEventRepository { get; }
+        IRepository<User> UserRepository { get; }
+        IRepository<ViewedTicketEventDate> ViewedTicketEventDateRepository { get; }
         void Commit();
+        void Dispose();
     }
 }

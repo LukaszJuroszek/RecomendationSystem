@@ -1,4 +1,4 @@
-﻿namespace WinRecomendationSystem.Model
+﻿namespace WinRecomendationSystem.Entities
 {
     public class User
     {

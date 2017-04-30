@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Model.Context;
 
 namespace WinRecomendationSystem.Model

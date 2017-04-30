@@ -1,5 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
 using WinRecomendationSystem.DAL;
+using WinRecomendationSystem.ViewModel;
 
 namespace WinRecomendationSystem
 {
@@ -8,9 +10,12 @@ namespace WinRecomendationSystem
         public FrmMain()
         {
             var repo = new UnitOfWork();
+            /
             var p = repo.UserRepository.GetAll();
             this.listView = new ListView();
-            listView.Columns.Ad
+            var s = new FrmMainViewModel(repo);
+            var ss= s.TicketEvents.ToArray();
+            var sss= s.Users.ToArray();
             InitializeComponent();
         }
     }

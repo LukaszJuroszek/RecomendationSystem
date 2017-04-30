@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using WinRecomendationSystem.Model;
 
 namespace WinRecomendationSystem.DAL
@@ -8,40 +9,39 @@ namespace WinRecomendationSystem.DAL
     public class Repository<T> : IRepository<T>, IDisposable where T : class
     {
         protected TicketContext _context;
-        protected DbSet<T> dbSet;
+        protected DbSet<T> _dbSet;
+        private bool disposed = false;
         public Repository(TicketContext context)
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
             _context = context;
-            dbSet = context.Set<T>();
-        }
-        public virtual T GetByID(int id)
-        {
-            return dbSet.Find(id);
-        }
-        public virtual IEnumerable<T> GetAll()
-        {
-            return dbSet;
+            _dbSet = context.Set<T>();
         }
         public virtual void Add(T entity)
         {
-            dbSet.Add(entity);
+            _dbSet.Add(entity);
         }
-        public virtual void Edit(T entity)
+        public virtual IQueryable<T> GetAll()
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            return _dbSet;
         }
         public virtual void Delete(T entity)
         {
-            dbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
-        //IDisposable implementation
-        private bool disposed = false;
+        public virtual void Update(T element)
+        {
+            _context.Entry(element).State = EntityState.Modified;
+        }
+        public virtual T GetByID(int id)
+        {
+            return _dbSet.Find(id);
+        }
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
                 if (disposing)
-                   _context.Dispose();
+                    _context.Dispose();
         }
         public void Dispose()
         {

@@ -52,15 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\Repositories\ClikedEventRepository.cs" />
-    <Compile Include="DAL\Repositories\EventCategoryRepository.cs" />
-    <Compile Include="DAL\Repositories\OpinionRepository.cs" />
     <Compile Include="DAL\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="DAL\UnitOfWork\Repository.cs" />
-    <Compile Include="DAL\Repositories\TicketEventRepository.cs" />
     <Compile Include="DAL\UnitOfWork\IRepository.cs" />
-    <Compile Include="DAL\Repositories\UserRepository.cs" />
-    <Compile Include="DAL\Repositories\ViewedTicketEventDateRepository.cs" />
     <Compile Include="DAL\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="FrmMain.cs">
@@ -69,16 +63,17 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ClikedEvent.cs" />
+    <Compile Include="DAL\Entities\ClikedEvent.cs" />
     <Compile Include="DAL\Context\TicketContextInitializer.cs" />
-    <Compile Include="Entities\EventCategory.cs" />
-    <Compile Include="Entities\Opinion.cs" />
+    <Compile Include="DAL\Entities\EventCategory.cs" />
+    <Compile Include="DAL\Entities\Opinion.cs" />
     <Compile Include="DAL\Context\TicketContext.cs" />
-    <Compile Include="Entities\TicketEvent.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\ViewedTicketEventDate.cs" />
+    <Compile Include="DAL\Entities\TicketEvent.cs" />
+    <Compile Include="DAL\Entities\User.cs" />
+    <Compile Include="DAL\Entities\ViewedTicketEventDate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\FrmMainViewModel.cs" />
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,8 +100,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

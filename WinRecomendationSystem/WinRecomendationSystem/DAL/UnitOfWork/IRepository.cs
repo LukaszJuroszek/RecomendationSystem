@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 
 namespace WinRecomendationSystem.DAL
 {
-    public interface IRepository<T>  where T : class
+    public interface IRepository<T> : IDisposable where T : class
     {
         void Add(T element);
-        void Edit(T element);
-        T GetByID(int id);
+        IQueryable<T> GetAll();
+        void Update(T element);
         void Delete(T element);
-        IEnumerable<T> GetAll();
+        T GetByID(int id);
     }
 }

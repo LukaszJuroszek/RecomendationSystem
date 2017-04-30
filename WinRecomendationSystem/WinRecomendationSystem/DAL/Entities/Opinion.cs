@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Enums;
 
 namespace WinRecomendationSystem.Model
