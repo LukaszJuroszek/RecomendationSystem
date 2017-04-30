@@ -65,7 +65,6 @@
     </Compile>
     <Compile Include="DAL\Entities\ClikedEvent.cs" />
     <Compile Include="DAL\Context\TicketContextInitializer.cs" />
-    <Compile Include="DAL\Entities\EventCategory.cs" />
     <Compile Include="DAL\Entities\Opinion.cs" />
     <Compile Include="DAL\Context\TicketContext.cs" />
     <Compile Include="DAL\Entities\TicketEvent.cs" />

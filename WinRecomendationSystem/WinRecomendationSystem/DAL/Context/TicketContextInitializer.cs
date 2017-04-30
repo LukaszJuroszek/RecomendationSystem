@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using WinRecomendationSystem.Entities;
 
 namespace WinRecomendationSystem.Model.Context
@@ -12,13 +14,21 @@ namespace WinRecomendationSystem.Model.Context
                 Name = "Test",
                 ComputerName = "TestComputerName"
             });
-            context.EventCategories.Add(new EventCategory { Name = "Muzka" });
-            context.EventCategories.Add(new EventCategory { Name = "Teatr" });
-            context.EventCategories.Add(new EventCategory { Name = "Sport" });
-            context.EventCategories.Add(new EventCategory { Name = "Rodzina" });
-            context.EventCategories.Add(new EventCategory { Name = "Klasyka" });
-            context.EventCategories.Add(new EventCategory { Name = "Widowiskowa" });
-            context.EventCategories.Add(new EventCategory { Name = "Biznes" });
+            context.TicketEvents.Add(new TicketEvent
+            {
+                Date = DateTime.Now.Add(TimeSpan.FromDays(123)),
+                EventCategory = Enums.EventCategory.Muzka,
+                Localization= "Warsaw",
+                Title="Koncert Maryli"
+            });
+            context.TicketEvents.Add(new TicketEvent
+            {
+                Date = DateTime.Now.Add(TimeSpan.FromDays(23)),
+                EventCategory = Enums.EventCategory.Muzka,
+                Localization = "Warsaw",
+                Title = "Koncert Maryli"
+            });
+
         }
     }
 }

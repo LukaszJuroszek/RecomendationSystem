@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WinRecomendationSystem.Enums
+﻿namespace WinRecomendationSystem.Enums
 {
     public enum EventOpinion
     {
         Like,
         NotLike,
         DontKnow
+    }
+    public enum EventCategory
+    {
+        Muzka,
+        Teatr,
+        Sport,
+        Rodzina,
+        Klasyka,
+        Widowiskowa,
+        Biznes
     }
 }

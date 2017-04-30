@@ -8,7 +8,6 @@ namespace WinRecomendationSystem.Model
     {
         public DbSet<User> Users { get; set; }
         public DbSet<ClikedEvent> ClikedEvents { get; set; }
-        public DbSet<EventCategory> EventCategories { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
         public DbSet<TicketEvent> TicketEvents { get; set; }
         public DbSet<ViewedTicketEventDate> ViewedTicketEventDates { get; set; }

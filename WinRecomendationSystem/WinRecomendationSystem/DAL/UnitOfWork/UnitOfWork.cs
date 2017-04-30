@@ -10,7 +10,6 @@ namespace WinRecomendationSystem.DAL
         private TicketContext _dbContext = new TicketContext();
         private bool disposed = false;
         private Repository<ClikedEvent> _clikedEventRepository;
-        private Repository<EventCategory> _eventCategoryRepository;
         private Repository<Opinion> _opinionRepository;
         private Repository<TicketEvent> _ticketEventRepository;
         private Repository<User> _userRepository;
@@ -21,9 +20,6 @@ namespace WinRecomendationSystem.DAL
         }
         public IRepository<ClikedEvent> ClikedEventRepository {
             get { return _clikedEventRepository ?? new Repository<ClikedEvent>(_dbContext); }
-        }
-        public IRepository<EventCategory> EventCategoryRepository {
-            get { return _eventCategoryRepository ?? new Repository<EventCategory>(_dbContext); }
         }
         public IRepository<Opinion> OpinionRepository {
             get { return _opinionRepository ?? new Repository<Opinion>(_dbContext); }

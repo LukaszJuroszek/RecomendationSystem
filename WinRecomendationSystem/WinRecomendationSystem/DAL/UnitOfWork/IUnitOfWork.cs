@@ -6,7 +6,6 @@ namespace WinRecomendationSystem.DAL
     public interface IUnitOfWork
     {
         IRepository<ClikedEvent> ClikedEventRepository { get; }
-        IRepository<EventCategory> EventCategoryRepository { get; }
         IRepository<Opinion> OpinionRepository { get; }
         IRepository<TicketEvent> TicketEventRepository { get; }
         IRepository<User> UserRepository { get; }

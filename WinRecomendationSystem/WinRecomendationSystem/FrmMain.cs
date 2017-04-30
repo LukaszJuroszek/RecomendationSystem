@@ -28,7 +28,7 @@ namespace WinRecomendationSystem
             foreach (var item in _mainViewModel.TicketEvents)
             {
             lv.Text = item.Localization;
-            lv.SubItems.Add(item.EventCategory.Name);
+            lv.SubItems.Add(item.EventCategory.ToString());
             lv.SubItems.Add(item.Date.ToShortDateString());
                 listView.Items.Add(lv);
             }
