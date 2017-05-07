@@ -7,7 +7,6 @@ namespace WinRecomendationSystem.DAL
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
-        //used http://panictheorem.net/Blog/Repository-And-Unit-Of-Work
         private TicketContext _dbContext = new TicketContext();
         private bool disposed = false;
         private Repository<ClikedEvent> _clikedEventRepository;

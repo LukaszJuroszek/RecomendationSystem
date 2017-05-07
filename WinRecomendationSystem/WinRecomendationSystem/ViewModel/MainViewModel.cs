@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using WinRecomendationSystem.DAL;
 using WinRecomendationSystem.DAL.Entities;
 using WinRecomendationSystem.Entities;
@@ -50,11 +48,8 @@ namespace WinRecomendationSystem.ViewModel
         }
         public TicketEvent GetTicketEventById(int id)
         {
-            Expression<Func<TicketEvent, bool>> FilterTicketEventById()
-            {
-                return x => x.Id == id;
-            }
-            return _unitOfWork.TicketEventRepository.Filter(FilterTicketEventById()).First();
+            return _unitOfWork.TicketEventRepository.Filter(x => x.Id == id).First();
         }
     }
 }
+

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Forms;
+using WinRecomendationSystem.RecomendationEngine;
 using WinRecomendationSystem.ViewModel;
 
 namespace WinRecomendationSystem
@@ -11,6 +11,7 @@ namespace WinRecomendationSystem
         public FrmMain()
         {
             _mainViewModel = new MainViewModel();
+            var rs = new RecomendationProfile();
             InitializeComponent();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -59,8 +60,6 @@ namespace WinRecomendationSystem
             {
                 _mainViewModel.AddClikedEvent(frmShowTicket._showClickedTicketViewModel);
                 _mainViewModel.AddOpinion(frmShowTicket._opinionViewModel);
-                //_mainViewModel.Add(showTicketViewModel);
-                //dodawanie (przepisać z viewmodelu do encji)
             }
         }
     }
