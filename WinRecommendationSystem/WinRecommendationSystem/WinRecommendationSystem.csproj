@@ -82,10 +82,10 @@
     <Compile Include="HTMLParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecommendationEngine\OpinionStorage.cs" />
+    <Compile Include="RecommendationEngine\Storages\OpinionStorage.cs" />
     <Compile Include="RecommendationEngine\Recommendation.cs" />
     <Compile Include="RecommendationEngine\RecommendationProfile.cs" />
-    <Compile Include="RecommendationEngine\WatchedEventStorage.cs" />
+    <Compile Include="RecommendationEngine\Storages\WatchedEventStorage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OpinionViewModel.cs" />
     <Compile Include="ViewModel\ShowTicketClickedViewModel.cs" />

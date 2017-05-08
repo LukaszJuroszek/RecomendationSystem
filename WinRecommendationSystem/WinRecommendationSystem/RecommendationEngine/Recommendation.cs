@@ -57,7 +57,7 @@ namespace WinRecomendationSystem.RecommendationEngine
                 return 0.0;
             else if (notRecommendedCunt == 0)
                 return 100.0;
-            return ((double)recommendedCount / (double)notRecommendedCunt)*100;
+            return ((double)recommendedCount / notRecommendedCunt) *100;
         }
         public string RecommendationCategoriesToString()
         {

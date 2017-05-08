@@ -12,7 +12,7 @@ namespace WinRecomendationSystem.RecommendationEngine
         public User User { get; set; }
         public OpinionsStorage Opinions { get; private set; }
         public List<WatchedEventStorage> WatchedEvents { get; private set; }
-        private UnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
         public RecommendationProfile()
         {
             unitOfWork = new UnitOfWork();
@@ -23,11 +23,11 @@ namespace WinRecomendationSystem.RecommendationEngine
         public void SetOpinions()
         {
             var op = new Dictionary<TicketEvent, EventOpinion>();
-            var temp = unitOfWork.OpinionRepository
+            var userOpinions = unitOfWork.OpinionRepository
                 .All()
                 .Where(x => x.User.Id == User.Id)
                 .ToList();
-            foreach (var opinion in temp)
+            foreach (var opinion in userOpinions)
             {
                 op.Add(opinion.TicketEvents, opinion.EventOpinion);
             }
@@ -56,9 +56,9 @@ namespace WinRecomendationSystem.RecommendationEngine
             {
                 var teViewsCount = WatchedEvents
                     .Where(x => x.TicketEvent.Id == te.Id)
-                    .First().SumAllWatchedTicketEvent();
-                var allViews = WatchedEvents.Sum(x => x.SumAllWatchedTicketEvent());
-                return ((double)teViewsCount / allViews)*100;
+                    .First().SumAllClickedTicketEvents();
+                var allViews = WatchedEvents.Sum(x => x.SumAllClickedTicketEvents());
+                return ((double)teViewsCount / allViews) * 100;
             }
             return 0.0;
         }
