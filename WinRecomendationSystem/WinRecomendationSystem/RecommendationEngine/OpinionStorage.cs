@@ -3,7 +3,7 @@ using System.Text;
 using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Enums;
 
-namespace WinRecomendationSystem.RecomendationEngine
+namespace WinRecomendationSystem.RecommendationEngine
 {
     public class OpinionsStorage
     {

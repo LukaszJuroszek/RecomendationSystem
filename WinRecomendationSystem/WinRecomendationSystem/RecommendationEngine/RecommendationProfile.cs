@@ -1,33 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WinRecomendationSystem.DAL;
 using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Enums;
 
-namespace WinRecomendationSystem.RecomendationEngine
+namespace WinRecomendationSystem.RecommendationEngine
 {
-    public class RecomendationProfile
+    public class RecommendationProfile
     {
         public User User { get; set; }
         public OpinionsStorage Opinions { get; private set; }
         public List<WatchedEventStorage> WatchedEvents { get; private set; }
         private UnitOfWork unitOfWork;
-        public RecomendationProfile()
+        public RecommendationProfile()
         {
             unitOfWork = new UnitOfWork();
             User = unitOfWork.UserRepository.All().First();
             SetOpinions();
             SetWatchedEvents();
-            var op = Analysis();
-            var p = 2;
         }
         public void SetOpinions()
         {
             var op = new Dictionary<TicketEvent, EventOpinion>();
-            var temp = unitOfWork.OpinionRepository.All().Where(x => x.User.Id == User.Id).ToList();
+            var temp = unitOfWork.OpinionRepository
+                .All()
+                .Where(x => x.User.Id == User.Id)
+                .ToList();
             foreach (var opinion in temp)
             {
                 op.Add(opinion.TicketEvents, opinion.EventOpinion);
@@ -41,13 +40,29 @@ namespace WinRecomendationSystem.RecomendationEngine
         public void SetWatchedEvents()
         {
             WatchedEvents = new List<WatchedEventStorage>();
-            var userEventis = unitOfWork.ClikedEventRepository.Filter(x => x.User.Id == User.Id).GroupBy(x => x.TicketEvent).Select(x=>x.Key).ToList();
+            var userEventis = unitOfWork.ClikedEventRepository
+                .Filter(x => x.User.Id == User.Id)
+                .GroupBy(x => x.TicketEvent)
+                .Select(x => x.Key)
+                .ToList();
             foreach (var ticketEvent in userEventis)
             {
                 WatchedEvents.Add(new WatchedEventStorage(User, ticketEvent, unitOfWork));
             }
         }
-        public string Analysis()
+        public double GetPercentTicketEventsParticipationFromAllTicketEvents(TicketEvent te)
+        {
+            if (WatchedEvents.FindIndex(item => item.TicketEvent.Id == te.Id) != 0)
+            {
+                var teViewsCount = WatchedEvents
+                    .Where(x => x.TicketEvent.Id == te.Id)
+                    .First().SumAllWatchedTicketEvent();
+                var allViews = WatchedEvents.Sum(x => x.SumAllWatchedTicketEvent());
+                return ((double)teViewsCount / allViews)*100;
+            }
+            return 0.0;
+        }
+        public string AnalysisToString()
         {
             var sb = new StringBuilder();
             sb.Append(Opinions.ToString());

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
-using WinRecomendationSystem.RecomendationEngine;
+using WinRecomendationSystem.RecommendationEngine;
 using WinRecomendationSystem.ViewModel;
 
 namespace WinRecomendationSystem
@@ -11,7 +11,7 @@ namespace WinRecomendationSystem
         public FrmMain()
         {
             _mainViewModel = new MainViewModel();
-            var rs = new RecomendationProfile();
+            var rec = new Recommendation(new RecommendationProfile()).ToString();
             InitializeComponent();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)

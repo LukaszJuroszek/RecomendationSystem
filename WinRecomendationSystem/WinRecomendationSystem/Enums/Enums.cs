@@ -16,4 +16,9 @@
         Widowiskowa,
         Biznes
     }
+    public enum RecommendationState
+    {
+        NotRecommended,
+        Recommended
+    }
 }
