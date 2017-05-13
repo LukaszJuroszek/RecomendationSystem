@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WinRecomendationSystem.DAL;
 using WinRecomendationSystem.DAL.Entities;
 using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.Model;
+using WinRecomendationSystem.RecommendationEngine;
 
 namespace WinRecomendationSystem.ViewModel
 {
@@ -15,7 +17,7 @@ namespace WinRecomendationSystem.ViewModel
         public MainViewModel()
         {
             _unitOfWork = new UnitOfWork();
-            TicketEvents = _unitOfWork.TicketEventRepository.All();
+            TicketEvents = _unitOfWork.TicketEventRepository.All().ToList();
             Users = _unitOfWork.UserRepository.All();
         }
         public void AddOpinion(OpinionViewModel model)
@@ -49,6 +51,20 @@ namespace WinRecomendationSystem.ViewModel
         public TicketEvent GetTicketEventById(int id)
         {
             return _unitOfWork.TicketEventRepository.Filter(x => x.Id == id).First();
+        }
+        public IEnumerable<TicketEvent> GetRemomendedTicketEvents(int count)
+        {
+            var usrRec = new UserRecommendation(new RecommendationProfile(Users.First()));
+            var listOfTicketEvent = usrRec.GetEventsCategoriesBasedOnRecommendCategories(count);
+            var result = new List<TicketEvent>();
+            if (TicketEvents.Count() < listOfTicketEvent.Count)
+            {
+                for (int i = 0; i < TicketEvents.Count(); i++)
+                {
+                    result.Add(TicketEvents.Where(x => x.EventCategory == listOfTicketEvent[i]).OrderBy(x => Guid.NewGuid()).First());
+                }
+            }
+            return result;
         }
     }
 }

@@ -34,6 +34,8 @@
             this.EventLocalization = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EventDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnShow = new System.Windows.Forms.Button();
+            this.bntShowRecomendation = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listView
@@ -48,7 +50,7 @@
             this.listView.GridLines = true;
             this.listView.Location = new System.Drawing.Point(0, 0);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(746, 470);
+            this.listView.Size = new System.Drawing.Size(454, 470);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
@@ -74,7 +76,7 @@
             // btnShow
             // 
             this.btnShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShow.Location = new System.Drawing.Point(767, 12);
+            this.btnShow.Location = new System.Drawing.Point(489, 26);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(75, 23);
             this.btnShow.TabIndex = 1;
@@ -82,17 +84,40 @@
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
+            // bntShowRecomendation
+            // 
+            this.bntShowRecomendation.Location = new System.Drawing.Point(604, 12);
+            this.bntShowRecomendation.Name = "bntShowRecomendation";
+            this.bntShowRecomendation.Size = new System.Drawing.Size(90, 51);
+            this.bntShowRecomendation.TabIndex = 2;
+            this.bntShowRecomendation.Text = "Show Recomendation";
+            this.bntShowRecomendation.UseVisualStyleBackColor = true;
+            this.bntShowRecomendation.Click += new System.EventHandler(this.bntShowRecomendation_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox1.Location = new System.Drawing.Point(460, 96);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(382, 353);
+            this.textBox1.TabIndex = 3;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 470);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.bntShowRecomendation);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.btnShow);
             this.Name = "FrmMain";
             this.Text = "FrmMain";
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -104,6 +129,8 @@
         private System.Windows.Forms.ColumnHeader EventTitle;
         private System.Windows.Forms.ColumnHeader EventDate;
         private System.Windows.Forms.Button btnShow;
+        private System.Windows.Forms.Button bntShowRecomendation;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

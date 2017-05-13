@@ -12,29 +12,27 @@ namespace WinRecomendationSystem.RecommendationEngine
         public User User { get; set; }
         public TicketEvent TicketEvent { get; set; }
         public Dictionary<DateTime, int> WatchedTicketEventCountsPerDay { get; set; }
-        public WatchedEventStorage(User user, TicketEvent ticketEvent, IUnitOfWork uow)
+        private IUnitOfWork unitOfWork = new UnitOfWork();
+        public WatchedEventStorage(User user, TicketEvent ticketEvent)
         {
             User = user;
             TicketEvent = ticketEvent;
-            WatchedTicketEventCountsPerDay = GetClickedEventsFromDate(DateTime.Now.Add(TimeSpan.FromDays(-7)), uow);
+            WatchedTicketEventCountsPerDay = GetClickedEventsFromDate(DateTime.Now.Add(TimeSpan.FromDays(-7)));
         }
         public int SumAllClickedTicketEvents()
         {
             return WatchedTicketEventCountsPerDay.Values.Sum();
         }
-        private Dictionary<DateTime, int> GetClickedEventsFromDate(DateTime fromDate, IUnitOfWork uow)
+        private Dictionary<DateTime, int> GetClickedEventsFromDate(DateTime fromDate)
         {
-            ClikedEvent clickedEvent = GetUserClickedEvents(uow);
-            return clickedEvent.ViewedTicketEventDates
+            return GetUserClickedEvents().ViewedTicketEventDates
                 .Where(day => day.WhenClicked > fromDate)
                 .GroupBy(x => x.WhenClicked.Date)
                 .ToDictionary(days => days.Key, clicked => clicked.Count());
         }
-        private ClikedEvent GetUserClickedEvents(IUnitOfWork uow)
+        private ClikedEvent GetUserClickedEvents()
         {
-            return uow.ClikedEventRepository
-                            .Filter(ev => ev.TicketEvent.Id == TicketEvent.Id && ev.User.Id == User.Id)
-                            .First();
+            return unitOfWork.ClikedEventRepository.Filter(ev => ev.TicketEvent.Id == TicketEvent.Id && ev.User.Id == User.Id).First();
         }
         public override string ToString()
         {

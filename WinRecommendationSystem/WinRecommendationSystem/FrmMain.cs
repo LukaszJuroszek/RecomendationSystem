@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using WinRecomendationSystem.Entities;
 using WinRecomendationSystem.RecommendationEngine;
 using WinRecomendationSystem.ViewModel;
 
@@ -11,7 +13,6 @@ namespace WinRecomendationSystem
         public FrmMain()
         {
             _mainViewModel = new MainViewModel();
-            var rec = new Recommendation(new RecommendationProfile()).ToString();
             InitializeComponent();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -25,8 +26,7 @@ namespace WinRecomendationSystem
         }
         private void FrmMain_Load(object sender, System.EventArgs e)
         {
-            ViewEvents(_mainViewModel);
-            SetAutoAdjustColumnSize();
+            ViewEvents(_mainViewModel.TicketEvents);
         }
         private void SetAutoAdjustColumnSize()
         {
@@ -35,9 +35,10 @@ namespace WinRecomendationSystem
                 listView.Columns[i].Width = -2;
             }
         }
-        private void ViewEvents(MainViewModel mainViewModel)
+        private void ViewEvents(IEnumerable<TicketEvent> tickets)
         {
-            foreach (var item in mainViewModel.TicketEvents)
+            RemoveFromListViewAllTicketEvents();
+            foreach (var item in tickets)
             {
                 var lv = new ListViewItem() { Text = item.Title.ToString() };
                 lv.Tag = item.Id;
@@ -46,21 +47,40 @@ namespace WinRecomendationSystem
                 lv.SubItems.Add(item.Date.ToShortDateString());
                 listView.Items.Add(lv);
             }
+            SetAutoAdjustColumnSize();
         }
         private void btnShow_Click(object sender, System.EventArgs e)
         {
-            var tickedEvent = _mainViewModel.GetTicketEventById(int.Parse(listView.SelectedItems[0].Tag.ToString()));
-            var showTicketViewModel = new ShowTicketViewModel()
+            if (listView.SelectedItems.Count > 0)
             {
-                TicketEvent = tickedEvent,
-                User = _mainViewModel.Users.First() // for one user
-            };
-            var frmShowTicket = new FrmShowTicket(showTicketViewModel);
-            if (frmShowTicket.ShowDialog() == DialogResult.Cancel)
-            {
-                _mainViewModel.AddClikedEvent(frmShowTicket._showClickedTicketViewModel);
-                _mainViewModel.AddOpinion(frmShowTicket._opinionViewModel);
+                var tickedEvent = _mainViewModel.GetTicketEventById(int.Parse(listView.SelectedItems[0].Tag.ToString()));
+                var showTicketViewModel = new ShowTicketViewModel()
+                {
+                    TicketEvent = tickedEvent,
+                    User = _mainViewModel.Users.First() // for one user
+                };
+                var frmShowTicket = new FrmShowTicket(showTicketViewModel);
+                if (frmShowTicket.ShowDialog() == DialogResult.Cancel)
+                {
+                    _mainViewModel.AddClikedEvent(frmShowTicket._showClickedTicketViewModel);
+                    _mainViewModel.AddOpinion(frmShowTicket._opinionViewModel);
+                }
             }
+            else
+                MessageBox.Show("Pleas Select event and then click ShowTicket","Error while selecting Ticket Event");
+        }
+
+        private void bntShowRecomendation_Click(object sender, System.EventArgs e)
+        {
+                      //ViewEvents(_mainViewModel.GetRemomendedTicketEvents(3));
+            var usrRec = new UserRecommendation(new RecommendationProfile(_mainViewModel.Users.First()));
+            textBox1.Text = usrRec.ToString();
+        }
+
+        private void RemoveFromListViewAllTicketEvents()
+        {
+            for (int i = listView.Items.Count - 1; i >= 0; i--)
+                listView.Items[i].Remove();
         }
     }
 }

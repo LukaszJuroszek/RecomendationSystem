@@ -14,7 +14,8 @@
         Rodzina,
         Klasyka,
         Widowiskowa,
-        Biznes
+        Biznes,
+        None,
     }
     public enum RecommendationState
     {

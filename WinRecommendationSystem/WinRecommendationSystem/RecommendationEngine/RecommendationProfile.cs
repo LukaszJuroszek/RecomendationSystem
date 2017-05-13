@@ -9,37 +9,39 @@ namespace WinRecomendationSystem.RecommendationEngine
 {
     public class RecommendationProfile
     {
-        public User User { get; set; }
-        public OpinionsStorage Opinions { get; private set; }
-        public List<WatchedEventStorage> WatchedEvents { get; private set; }
+        public User User { get; private set; }
+        public OpinionsStorage Opinions {
+            get { return GetOpinions(); }
+        }
+        public List<WatchedEventStorage> WatchedEvents {
+            get { return GetWatchedEvents().ToList(); }
+        }
         private IUnitOfWork unitOfWork;
-        public RecommendationProfile()
+        public RecommendationProfile(User user)
         {
             unitOfWork = new UnitOfWork();
-            User = unitOfWork.UserRepository.All().First();
-            SetOpinions();
-            SetWatchedEvents();
+            User = user;
         }
-        public void SetOpinions()
+        private OpinionsStorage GetOpinions()
         {
-            var op = new Dictionary<TicketEvent, EventOpinion>();
+            var opinionOfTicketEvent = new Dictionary<TicketEvent, EventOpinion>();
             var userOpinions = unitOfWork.OpinionRepository
                 .All()
                 .Where(x => x.User.Id == User.Id)
                 .ToList();
             foreach (var opinion in userOpinions)
             {
-                op.Add(opinion.TicketEvents, opinion.EventOpinion);
+                opinionOfTicketEvent.Add(opinion.TicketEvents, opinion.EventOpinion);
             }
-            Opinions = new OpinionsStorage
+            return new OpinionsStorage
             {
                 User = User,
-                EventOpinions = op
+                EventOpinions = opinionOfTicketEvent
             };
         }
-        public void SetWatchedEvents()
+        private IEnumerable<WatchedEventStorage> GetWatchedEvents()
         {
-            WatchedEvents = new List<WatchedEventStorage>();
+            var watchedEvents = new List<WatchedEventStorage>();
             var userEventis = unitOfWork.ClikedEventRepository
                 .Filter(x => x.User.Id == User.Id)
                 .GroupBy(x => x.TicketEvent)
@@ -47,10 +49,11 @@ namespace WinRecomendationSystem.RecommendationEngine
                 .ToList();
             foreach (var ticketEvent in userEventis)
             {
-                WatchedEvents.Add(new WatchedEventStorage(User, ticketEvent, unitOfWork));
+                watchedEvents.Add(new WatchedEventStorage(User, ticketEvent));
             }
+            return watchedEvents;
         }
-        public double GetPercentTicketEventsParticipationFromAllTicketEvents(TicketEvent te)
+        public double GetPercentTicketEventsRatioFromAllTicketEvents(TicketEvent te)
         {
             if (WatchedEvents.FindIndex(item => item.TicketEvent.Id == te.Id) != 0)
             {
