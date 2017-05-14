@@ -4,6 +4,7 @@ using System.Linq;
 using WinRecomendationSystem.DAL;
 using WinRecomendationSystem.DAL.Entities;
 using WinRecomendationSystem.Entities;
+using WinRecomendationSystem.Enums;
 using WinRecomendationSystem.Model;
 using WinRecomendationSystem.RecommendationEngine;
 
@@ -57,14 +58,24 @@ namespace WinRecomendationSystem.ViewModel
             var usrRec = new UserRecommendation(new RecommendationProfile(Users.First()));
             var listOfTicketEvent = usrRec.GetEventsCategoriesBasedOnRecommendCategories(count);
             var result = new List<TicketEvent>();
-            if (TicketEvents.Count() < listOfTicketEvent.Count)
+
+            for (int i = 0; i < listOfTicketEvent.Count; i++)
             {
-                for (int i = 0; i < TicketEvents.Count(); i++)
-                {
-                    result.Add(TicketEvents.Where(x => x.EventCategory == listOfTicketEvent[i]).OrderBy(x => Guid.NewGuid()).First());
-                }
+                var toAdd = GetTicketEventByEventCategorFromListByI(listOfTicketEvent, i);
+                if (!result.Contains(toAdd))
+                    if (TicketEvents.Where(x => x.EventCategory == listOfTicketEvent[i]).Count() >= count)
+                        do
+                        {
+                            toAdd = GetTicketEventByEventCategorFromListByI(listOfTicketEvent, i);
+                        } while (result.Contains(toAdd));
+                if (!result.Contains(toAdd))
+                    result.Add(toAdd);
             }
             return result;
+        }
+        private TicketEvent GetTicketEventByEventCategorFromListByI(IList<EventCategory> listOfTicketEvent, int i)
+        {
+            return TicketEvents.Where(x => x.EventCategory == listOfTicketEvent[i]).OrderBy(x => Guid.NewGuid()).First();
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using WinRecomendationSystem.Entities;
+using WinRecomendationSystem.Enums;
 
 namespace WinRecomendationSystem.Model.Context
 {
@@ -13,28 +16,40 @@ namespace WinRecomendationSystem.Model.Context
                 Name = "Test",
                 ComputerName = "TestComputerName"
             });
-            context.TicketEvents.Add(new TicketEvent
+            for (int i = 0; i < 40; i++)
             {
-                Date = DateTime.Now.Add(TimeSpan.FromDays(123)),
-                EventCategory = Enums.EventCategory.Muzka,
-                Localization= "Warsaw",
-                Title="Koncert Maryli"
-            });
-            context.TicketEvents.Add(new TicketEvent
-            {
-                Date = DateTime.Now.Add(TimeSpan.FromDays(23)),
-                EventCategory = Enums.EventCategory.Rodzina,
-                Localization = "InoWrc",
-                Title = "Rodzina 500+"
-            });
-            context.TicketEvents.Add(new TicketEvent
-            {
-                Date = DateTime.Now.Add(TimeSpan.FromDays(23)),
-                EventCategory = Enums.EventCategory.Biznes,
-                Localization = "Warsaw",
-                Title = ".netEvent"
-            });
+                AddRandomTicketEvents(context);
+            }
+        }
 
+        private void AddRandomTicketEvents(TicketContext context)
+        {
+            var rnd = GetRandom7TicketEvents();
+            for (int s = 0; s < rnd.Count(); s++)
+            {
+                context.TicketEvents.Add(rnd[s]);
+            }
+        }
+
+        private List<TicketEvent> GetRandom7TicketEvents()
+        {
+            var list = new List<TicketEvent>();
+            for (int i = 0; i < 7; i++)
+            {
+                list.Add(GetRandomTicketEvent(i));
+            }
+            return list;
+        }
+        private TicketEvent GetRandomTicketEvent(int cat)
+        {
+            var rnd = new Random();
+            return new TicketEvent
+            {
+                Date = DateTime.Now.Add(TimeSpan.FromDays(-rnd.Next(0, 100))),
+                EventCategory = (EventCategory)Enum.GetValues(typeof(EventCategory)).GetValue(cat),
+                Localization = "Zimbawwe",
+                Title = Guid.NewGuid().ToString("n").Substring(0, 8)
+            };
         }
     }
 }

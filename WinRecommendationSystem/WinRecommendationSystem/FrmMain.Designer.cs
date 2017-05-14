@@ -54,6 +54,7 @@
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.Click += new System.EventHandler(this.btnShow_Click);
             // 
             // EventTitle
             // 
@@ -76,9 +77,9 @@
             // btnShow
             // 
             this.btnShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShow.Location = new System.Drawing.Point(489, 26);
+            this.btnShow.Location = new System.Drawing.Point(460, 12);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(75, 23);
+            this.btnShow.Size = new System.Drawing.Size(121, 51);
             this.btnShow.TabIndex = 1;
             this.btnShow.Text = "Show Ticket";
             this.btnShow.UseVisualStyleBackColor = true;
@@ -86,9 +87,9 @@
             // 
             // bntShowRecomendation
             // 
-            this.bntShowRecomendation.Location = new System.Drawing.Point(604, 12);
+            this.bntShowRecomendation.Location = new System.Drawing.Point(587, 12);
             this.bntShowRecomendation.Name = "bntShowRecomendation";
-            this.bntShowRecomendation.Size = new System.Drawing.Size(90, 51);
+            this.bntShowRecomendation.Size = new System.Drawing.Size(116, 51);
             this.bntShowRecomendation.TabIndex = 2;
             this.bntShowRecomendation.Text = "Show Recomendation";
             this.bntShowRecomendation.UseVisualStyleBackColor = true;

@@ -10,6 +10,7 @@ namespace WinRecomendationSystem
     public partial class FrmMain : Form
     {
         private MainViewModel _mainViewModel;
+        private bool allOrRec = true;
         public FrmMain()
         {
             _mainViewModel = new MainViewModel();
@@ -72,9 +73,18 @@ namespace WinRecomendationSystem
 
         private void bntShowRecomendation_Click(object sender, System.EventArgs e)
         {
-                      //ViewEvents(_mainViewModel.GetRemomendedTicketEvents(3));
-            var usrRec = new UserRecommendation(new RecommendationProfile(_mainViewModel.Users.First()));
+            if (allOrRec)
+            {
+                ViewEvents(_mainViewModel.GetRemomendedTicketEvents(15));
+                var usrRec = new UserRecommendation(new RecommendationProfile(_mainViewModel.Users.First()));
             textBox1.Text = usrRec.ToString();
+                allOrRec = false;
+            }
+            else
+            {
+                ViewEvents(_mainViewModel.TicketEvents);
+                allOrRec = true;
+            }
         }
 
         private void RemoveFromListViewAllTicketEvents()

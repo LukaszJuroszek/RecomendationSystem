@@ -14,6 +14,15 @@ namespace WinRecomendationSystem.RecommendationEngine
         public IList<KeyValuePair<EventCategory, double>> RecommendedCategories { get; private set; }
         private UnitOfWork unitOfwork;
         private RecommendationProfile recommendationProfile;
+        private static readonly Random random = new Random();
+        private static readonly object syncLock = new object();
+        public static int RandomNumber(int min, int max)
+        {
+            lock (syncLock)
+            { // synchronize
+                return random.Next(min, max);
+            }
+        }
         public UserRecommendation(RecommendationProfile rp)
         {
             unitOfwork = new UnitOfWork();
@@ -64,19 +73,23 @@ namespace WinRecomendationSystem.RecommendationEngine
         }
         private EventCategory GetEventCategoryBasedOnRecommendCategories()
         {
-            var randomNumberFromRecommendedCategories = GetRandomNumber(0, RecommendedCategories.Select(x => x.Value).Sum(), new Random());
+            var recommendedCategoriesWithoutZeros = RecommendedCategories.Where(x => x.Value > 0).ToList();
+            var randomNumberFromRecommendedCategories = GetRandomNumber(0, recommendedCategoriesWithoutZeros.Select(x => x.Value).Sum());
             var currentSum = 0.0;
-            for (var i = 0; i < RecommendedCategories.Count; i++)
+            for (var i = 0; i < recommendedCategoriesWithoutZeros.Count(); i++)
             {
-                currentSum += RecommendedCategories[i].Value;
+                currentSum += recommendedCategoriesWithoutZeros[i].Value;
                 if (currentSum >= randomNumberFromRecommendedCategories)
-                    return RecommendedCategories[i].Key;
+                    return recommendedCategoriesWithoutZeros[i].Key;
             }
             return EventCategory.None;
         }
-        private double GetRandomNumber(double minimum, double maximum, Random random)
+        private double GetRandomNumber(double minimum, double maximum)
         {
-            return random.NextDouble() * (maximum - minimum) + minimum;
+            lock (syncLock)
+            { // synchronize
+                return random.NextDouble() * (maximum - minimum) + minimum;
+            }
         }
         private double RecommendedPercentRatio(EventCategory ec)
         {
