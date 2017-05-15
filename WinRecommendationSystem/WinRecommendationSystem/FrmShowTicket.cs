@@ -41,16 +41,19 @@ namespace WinRecomendationSystem
         private void btnLike_Click(object sender, EventArgs e)
         {
             _opinionViewModel.EventOpinion = EventOpinion.Like;
+            Close();
         }
 
         private void btnDontLike_Click(object sender, EventArgs e)
         {
             _opinionViewModel.EventOpinion = EventOpinion.DontLike;
+            Close();
         }
 
         private void bntNormal_Click(object sender, EventArgs e)
         {
             _opinionViewModel.EventOpinion = EventOpinion.Normal;
+            Close();
         }
     }
 }

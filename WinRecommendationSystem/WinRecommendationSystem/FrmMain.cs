@@ -68,7 +68,7 @@ namespace WinRecomendationSystem
                 }
             }
             else
-                MessageBox.Show("Pleas Select event and then click ShowTicket","Error while selecting Ticket Event");
+                MessageBox.Show("Pleas Select event and then click ShowTicket", "Error while selecting Ticket Event");
         }
 
         private void bntShowRecomendation_Click(object sender, System.EventArgs e)
@@ -77,7 +77,7 @@ namespace WinRecomendationSystem
             {
                 ViewEvents(_mainViewModel.GetRemomendedTicketEvents(15));
                 var usrRec = new UserRecommendation(new RecommendationProfile(_mainViewModel.Users.First()));
-            textBox1.Text = usrRec.ToString();
+                textBox1.Text = usrRec.ToString();
                 allOrRec = false;
             }
             else
@@ -89,8 +89,12 @@ namespace WinRecomendationSystem
 
         private void RemoveFromListViewAllTicketEvents()
         {
-            for (int i = listView.Items.Count - 1; i >= 0; i--)
-                listView.Items[i].Remove();
+            foreach (ListViewItem item in listView.Items)
+            {
+                item.Remove();
+            }
+            //for (int i = listView.Items.Count - 1; i >= 0; i--)
+            //listView.Items[i].Remove();
         }
     }
 }

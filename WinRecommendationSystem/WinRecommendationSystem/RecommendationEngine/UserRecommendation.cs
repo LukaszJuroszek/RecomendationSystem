@@ -120,7 +120,7 @@ namespace WinRecomendationSystem.RecommendationEngine
         {
             var sb = new StringBuilder();
             sb.AppendLine($"{recommendationProfile.User.Name} ");
-            sb.AppendLine($"{RecommendationCategoriesToString()} ");
+            //sb.AppendLine($"{RecommendationCategoriesToString()} ");
             for (int i = 0; i < RecommendedCategories.Count(); i++)
             {
                 sb.AppendLine($"{RecommendedCategories[i].Key.ToString()} has {RecommendedCategories[i].Value} % recomended ratio ");

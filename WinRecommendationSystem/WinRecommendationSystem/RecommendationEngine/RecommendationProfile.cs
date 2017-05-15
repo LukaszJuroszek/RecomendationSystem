@@ -10,17 +10,15 @@ namespace WinRecomendationSystem.RecommendationEngine
     public class RecommendationProfile
     {
         public User User { get; private set; }
-        public OpinionsStorage Opinions {
-            get { return GetOpinions(); }
-        }
-        public List<WatchedEventStorage> WatchedEvents {
-            get { return GetWatchedEvents().ToList(); }
-        }
+        public OpinionsStorage Opinions { get; private set; }
+        public List<WatchedEventStorage> WatchedEvents { get; private set; }
         private IUnitOfWork unitOfWork;
         public RecommendationProfile(User user)
         {
             unitOfWork = new UnitOfWork();
             User = user;
+            Opinions = GetOpinions();
+            WatchedEvents = GetWatchedEvents().ToList();
         }
         private OpinionsStorage GetOpinions()
         {
