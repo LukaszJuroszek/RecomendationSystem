@@ -14,12 +14,14 @@ namespace WinRecomendationSystem.ViewModel
     {
         private IUnitOfWork _unitOfWork;
         public IEnumerable<TicketEvent> TicketEvents { get; set; }
-        public IEnumerable<User> Users { get; set; }
+        public User User { get; set; }
+        private UserRecommendation _userRecommendation;
         public MainViewModel()
         {
             _unitOfWork = new UnitOfWork();
             TicketEvents = _unitOfWork.TicketEventRepository.All().ToList();
-            Users = _unitOfWork.UserRepository.All();
+            User = _unitOfWork.UserRepository.All().First();
+            _userRecommendation = new UserRecommendation(new RecommendationProfile(User));
         }
         public void AddOpinion(OpinionViewModel model)
         {
@@ -53,29 +55,10 @@ namespace WinRecomendationSystem.ViewModel
         {
             return _unitOfWork.TicketEventRepository.Filter(x => x.Id == id).First();
         }
-        public IEnumerable<TicketEvent> GetRemomendedTicketEvents(int count)
+        public string GetRecomendationString() => _userRecommendation.ToString();
+        public IEnumerable<TicketEvent> GetRemommendedTicketEvents(int count)
         {
-            var usrRec = new UserRecommendation(new RecommendationProfile(Users.First()));
-            var listOfTicketEvent = usrRec.GetEventsCategoriesBasedOnRecommendCategories(count);
-            var result = new List<TicketEvent>();
-
-            for (int i = 0; i < listOfTicketEvent.Count; i++)
-            {
-                var toAdd = GetTicketEventByEventCategorFromListByI(listOfTicketEvent, i);
-                if (!result.Contains(toAdd))
-                    if (TicketEvents.Where(x => x.EventCategory == listOfTicketEvent[i]).Count() >= count)
-                        do
-                        {
-                            toAdd = GetTicketEventByEventCategorFromListByI(listOfTicketEvent, i);
-                        } while (result.Contains(toAdd));
-                if (!result.Contains(toAdd))
-                    result.Add(toAdd);
-            }
-            return result;
-        }
-        private TicketEvent GetTicketEventByEventCategorFromListByI(IList<EventCategory> listOfTicketEvent, int i)
-        {
-            return TicketEvents.Where(x => x.EventCategory == listOfTicketEvent[i]).OrderBy(x => Guid.NewGuid()).First();
+            return _userRecommendation.GetRemommendedTicketEvents(TicketEvents,count);
         }
     }
 }

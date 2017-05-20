@@ -10,7 +10,7 @@ namespace WinRecomendationSystem
     public partial class FrmMain : Form
     {
         private MainViewModel _mainViewModel;
-        private bool allOrRec = true;
+        private bool allOrRecomended = true;
         public FrmMain()
         {
             _mainViewModel = new MainViewModel();
@@ -20,18 +20,16 @@ namespace WinRecomendationSystem
         {
             const string message = "Are you sure that you would like to exit ?";
             const string caption = "Cancel exit";
-            var result = MessageBox.Show(message, caption,
-                             MessageBoxButtons.YesNo,
-                             MessageBoxIcon.Question);
-            e.Cancel = (result == DialogResult.No);
+            var result = MessageBox.Show(message,caption,MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            e.Cancel = ( result == DialogResult.No );
         }
-        private void FrmMain_Load(object sender, System.EventArgs e)
+        private void FrmMain_Load(object sender,System.EventArgs e)
         {
             ViewEvents(_mainViewModel.TicketEvents);
         }
         private void SetAutoAdjustColumnSize()
         {
-            for (int i = 0; i < listView.Columns.Count; i++)
+            for (int i = 0;i < listView.Columns.Count;i++)
             {
                 listView.Columns[i].Width = -2;
             }
@@ -50,7 +48,7 @@ namespace WinRecomendationSystem
             }
             SetAutoAdjustColumnSize();
         }
-        private void btnShow_Click(object sender, System.EventArgs e)
+        private void btnShow_Click(object sender,System.EventArgs e)
         {
             if (listView.SelectedItems.Count > 0)
             {
@@ -58,7 +56,7 @@ namespace WinRecomendationSystem
                 var showTicketViewModel = new ShowTicketViewModel()
                 {
                     TicketEvent = tickedEvent,
-                    User = _mainViewModel.Users.First() // for one user
+                    User = _mainViewModel.User
                 };
                 var frmShowTicket = new FrmShowTicket(showTicketViewModel);
                 if (frmShowTicket.ShowDialog() == DialogResult.Cancel)
@@ -68,33 +66,28 @@ namespace WinRecomendationSystem
                 }
             }
             else
-                MessageBox.Show("Pleas Select event and then click ShowTicket", "Error while selecting Ticket Event");
+                MessageBox.Show("Pleas Select event and then click ShowTicket","Error while selecting Ticket Event");
         }
-
-        private void bntShowRecomendation_Click(object sender, System.EventArgs e)
+        private void bntShowRecomendation_Click(object sender,System.EventArgs e)
         {
-            if (allOrRec)
+            if (allOrRecomended)
             {
-                ViewEvents(_mainViewModel.GetRemomendedTicketEvents(15));
-                var usrRec = new UserRecommendation(new RecommendationProfile(_mainViewModel.Users.First()));
-                textBox1.Text = usrRec.ToString();
-                allOrRec = false;
+                ViewEvents(_mainViewModel.GetRemommendedTicketEvents(15));
+                textBox1.Text = _mainViewModel.GetRecomendationString();
+                allOrRecomended = false;
             }
             else
             {
                 ViewEvents(_mainViewModel.TicketEvents);
-                allOrRec = true;
+                allOrRecomended = true;
             }
         }
-
         private void RemoveFromListViewAllTicketEvents()
         {
             foreach (ListViewItem item in listView.Items)
             {
                 item.Remove();
             }
-            //for (int i = listView.Items.Count - 1; i >= 0; i--)
-            //listView.Items[i].Remove();
         }
     }
 }
