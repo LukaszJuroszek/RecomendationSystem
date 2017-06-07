@@ -7,13 +7,16 @@ using RecomendationModel.Entities;
 using RecomendationModel.Enums;
 using RecomendationModel.Model;
 using RecomendationModel.RecommendationEngine;
+using PropertyChanged;
 
 namespace RecomendationModel.ViewModel
 {
+    [AddINotifyPropertyChangedInterface]
     public class MainViewModel
     {
         private IUnitOfWork _unitOfWork;
         public IEnumerable<TicketEvent> TicketEvents { get; set; }
+        public TicketEvent SelectedTicketEvent { get; set; }
         public User User { get; set; }
         private UserRecommendation _userRecommendation;
         public MainViewModel()
@@ -22,6 +25,7 @@ namespace RecomendationModel.ViewModel
             TicketEvents = _unitOfWork.TicketEventRepository.All().ToList();
             User = _unitOfWork.UserRepository.All().First();
             _userRecommendation = new UserRecommendation(new RecommendationProfile(User));
+            SelectedTicketEvent = new TicketEvent { Title = "testing Title" };
         }
         public void AddOpinion(OpinionViewModel model)
         {

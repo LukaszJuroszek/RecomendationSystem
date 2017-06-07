@@ -5,13 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfRecommendarionSystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="350" Width="700" 
         xmlns:vm="clr-namespace:RecomendationModel.ViewModel;assembly=RecomendationModel">
     <Grid>
-        <Grid.DataContext>
+        <Grid.DataContext >
             <vm:MainViewModel/>
         </Grid.DataContext>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Background="LightCyan" Height="199" Width="317" ItemsSource="{Binding TicketEvents}">
-        </DataGrid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Name="ticekEventsListView"  ItemsSource="{Binding TicketEvents}" SelectionChanged="ticekEventsListView_SelectionChanged" SelectedItem="{Binding SelectedTicketEvent}">
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
+                    <GridView.Columns>
+                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+                        <GridViewColumn Header="EventCategory" DisplayMemberBinding="{Binding EventCategory}" />
+                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
+                        <GridViewColumn Header="Localization" DisplayMemberBinding="{Binding Localization}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock x:Name="textBlockTitle" Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" Grid.Column="1" HorizontalAlignment="Left" Margin="154,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top"></TextBlock>
     </Grid>
 </Window>

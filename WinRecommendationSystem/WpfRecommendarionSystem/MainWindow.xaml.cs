@@ -1,19 +1,6 @@
-﻿using RecomendationModel.Entities;
-using RecomendationModel.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RecomendationModel.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfRecommendarionSystem
 {
@@ -23,15 +10,22 @@ namespace WpfRecommendarionSystem
     public partial class MainWindow : Window
     {
         private MainViewModel _mainViewModel;
-        public IEnumerable<TicketEvent> TicketEvents {
-            get {
-                return _mainViewModel.TicketEvents;
-            }
-        }
+
         public MainWindow()
         {
-            InitializeComponent();
             _mainViewModel = new MainViewModel();
+            InitializeComponent();
+        }
+
+        private void ticekEventsListView_SelectionChanged(object sender,SelectionChangedEventArgs e)
+        {
+            var stv = new ShowTicketWindow(new ShowTicketViewModel
+            {
+                TicketEvent = _mainViewModel.SelectedTicketEvent,
+                User = _mainViewModel.User
+            });
+            stv.Visibility = Visibility.Visible;
+
 
         }
     }
