@@ -1,7 +1,7 @@
-﻿using System;
+﻿using RecomendationModel.Enums;
+using RecomendationModel.ViewModel;
+using System;
 using System.Windows.Forms;
-using WinRecomendationSystem.Enums;
-using WinRecomendationSystem.ViewModel;
 
 namespace WinRecomendationSystem
 {

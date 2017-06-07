@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using RecomendationModel.Entities;
+using RecomendationModel.ViewModel;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using WinRecomendationSystem.Entities;
-using WinRecomendationSystem.RecommendationEngine;
-using WinRecomendationSystem.ViewModel;
 
 namespace WinRecomendationSystem
 {

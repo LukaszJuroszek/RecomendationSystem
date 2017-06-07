@@ -79,7 +79,7 @@
             this.btnShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnShow.Location = new System.Drawing.Point(460, 12);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(121, 51);
+            this.btnShow.Size = new System.Drawing.Size(179, 39);
             this.btnShow.TabIndex = 1;
             this.btnShow.Text = "Show Ticket";
             this.btnShow.UseVisualStyleBackColor = true;
@@ -87,9 +87,9 @@
             // 
             // bntShowRecomendation
             // 
-            this.bntShowRecomendation.Location = new System.Drawing.Point(587, 12);
+            this.bntShowRecomendation.Location = new System.Drawing.Point(645, 12);
             this.bntShowRecomendation.Name = "bntShowRecomendation";
-            this.bntShowRecomendation.Size = new System.Drawing.Size(116, 51);
+            this.bntShowRecomendation.Size = new System.Drawing.Size(197, 39);
             this.bntShowRecomendation.TabIndex = 2;
             this.bntShowRecomendation.Text = "Show Recomendation";
             this.bntShowRecomendation.UseVisualStyleBackColor = true;
@@ -99,10 +99,10 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(460, 96);
+            this.textBox1.Location = new System.Drawing.Point(460, 57);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(382, 353);
+            this.textBox1.Size = new System.Drawing.Size(382, 413);
             this.textBox1.TabIndex = 3;
             // 
             // FrmMain
