@@ -1,4 +1,5 @@
-﻿using RecomendationModel.ViewModel;
+﻿using RecomendationModel.Enums;
+using RecomendationModel.ViewModel;
 using System;
 using System.Windows;
 
@@ -9,20 +10,46 @@ namespace WpfRecommendarionSystem
     /// </summary>
     public partial class ShowTicketWindow : Window
     {
-        public ShowTicketViewModel ShowTicketViewModel { get; set; }
+        public ShowClickedTicketViewModel _showClickedTicketViewModel;
+        public OpinionViewModel _opinionViewModel;
         public ShowTicketWindow(ShowTicketViewModel showTicketViewModel)
         {
-            if (showTicketViewModel.TicketEvent == null)
-            {
-                throw new Exception("null");
-            }
-            ShowTicketViewModel = showTicketViewModel;
             InitializeComponent();
-            showTextBox.Text = ShowTicketViewModel.TicketEvent.Title;
+            DataContext = showTicketViewModel;
+            InitializeComponent();
+            _showClickedTicketViewModel = new ShowClickedTicketViewModel
+            {
+                WhenClicked = DateTime.Now,
+                TicketEvent = showTicketViewModel.TicketEvent,
+                User = showTicketViewModel.User
+            };
+            _opinionViewModel = new OpinionViewModel
+            {
+                TicketEvents = showTicketViewModel.TicketEvent,
+                User = showTicketViewModel.User,
+                EventOpinion = EventOpinion.Normal
+            };
         }
 
         private void okButton_Click(object sender,RoutedEventArgs e)
         {
+            Close();
+        }
+        private void btnLike_Click(object sender,EventArgs e)
+        {
+            _opinionViewModel.EventOpinion = EventOpinion.Like;
+            Close();
+        }
+
+        private void btnDontLike_Click(object sender,EventArgs e)
+        {
+            _opinionViewModel.EventOpinion = EventOpinion.DontLike;
+            Close();
+        }
+
+        private void bntNormal_Click(object sender,EventArgs e)
+        {
+            _opinionViewModel.EventOpinion = EventOpinion.Normal;
             Close();
         }
     }

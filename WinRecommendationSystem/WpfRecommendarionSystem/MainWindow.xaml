@@ -5,17 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfRecommendarionSystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="700" 
-        xmlns:vm="clr-namespace:RecomendationModel.ViewModel;assembly=RecomendationModel">
+        Title="MainWindow" Height="350" Width="700">
     <Grid>
-        <Grid.DataContext >
-            <vm:MainViewModel/>
-        </Grid.DataContext>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView Name="ticekEventsListView"  ItemsSource="{Binding TicketEvents}" SelectionChanged="ticekEventsListView_SelectionChanged" SelectedItem="{Binding SelectedTicketEvent}">
+        <ListView Name="ticekEventsListView"  SelectedItem="{Binding SelectedTicketEvent}" ItemsSource="{Binding TicketEvents, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ticekEventsListView_SelectionChanged" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
                     <GridView.Columns>
@@ -27,6 +23,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBlock x:Name="textBlockTitle" Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" Grid.Column="1" HorizontalAlignment="Left" Margin="154,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top"></TextBlock>
+        <TextBlock x:Name="textBlockTitle" Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" Grid.Column="1" HorizontalAlignment="Left" Margin="90,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="48"></TextBlock>
+        <Button x:Name="showTicketEvent" Click="ShowTicketButton_Click" Content="ShowButton" Grid.Column="1" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBlock x:Name="textBlockRecomendation_info" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="256" Width="326"/>
+        <Button x:Name="showRecomendation" Click="ShowRecomendation_Click" Content="ShowButton" Grid.Column="1" HorizontalAlignment="Left" Margin="261,15,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

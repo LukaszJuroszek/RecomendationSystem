@@ -25,7 +25,6 @@ namespace RecomendationModel.ViewModel
             TicketEvents = _unitOfWork.TicketEventRepository.All().ToList();
             User = _unitOfWork.UserRepository.All().First();
             _userRecommendation = new UserRecommendation(new RecommendationProfile(User));
-            SelectedTicketEvent = new TicketEvent { Title = "testing Title" };
         }
         public void AddOpinion(OpinionViewModel model)
         {
@@ -59,7 +58,11 @@ namespace RecomendationModel.ViewModel
         {
             return _unitOfWork.TicketEventRepository.Filter(x => x.Id == id).First();
         }
-        public string GetRecomendationString() => _userRecommendation.ToString();
+        public string GetRecomendationString()
+        {
+            _userRecommendation = new UserRecommendation(new RecommendationProfile(User));
+            return   _userRecommendation.ToString();
+        }
         public IEnumerable<TicketEvent> GetRemommendedTicketEvents(int count)
         {
             return _userRecommendation.GetRemommendedTicketEvents(TicketEvents,count);

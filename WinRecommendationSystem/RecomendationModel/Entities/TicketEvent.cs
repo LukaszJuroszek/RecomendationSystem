@@ -1,8 +1,10 @@
 ﻿using System;
 using RecomendationModel.Enums;
+using PropertyChanged;
 
 namespace RecomendationModel.Entities
 {
+    [AddINotifyPropertyChangedInterface]
     public class TicketEvent
     {
         public int Id { get; set; }

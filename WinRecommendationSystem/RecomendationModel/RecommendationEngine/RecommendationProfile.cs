@@ -4,9 +4,11 @@ using System.Text;
 using RecomendationModel.DAL;
 using RecomendationModel.Entities;
 using RecomendationModel.Enums;
+using PropertyChanged;
 
 namespace RecomendationModel.RecommendationEngine
 {
+    [AddINotifyPropertyChangedInterface]
     public class RecommendationProfile
     {
         public User User { get; private set; }

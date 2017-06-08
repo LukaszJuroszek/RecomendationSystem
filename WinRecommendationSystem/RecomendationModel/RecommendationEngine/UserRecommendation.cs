@@ -5,9 +5,11 @@ using RecomendationModel.DAL;
 using RecomendationModel.Entities;
 using RecomendationModel.Enums;
 using System;
+using PropertyChanged;
 
 namespace RecomendationModel.RecommendationEngine
 {
+    [AddINotifyPropertyChangedInterface]
     public class UserRecommendation
     {
         public IList<KeyValuePair<EventCategory,RecommendationState>> EventCategoryRecommendationState { get; private set; }
