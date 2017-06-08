@@ -17,11 +17,17 @@ namespace WpfRecommendarionSystem
             _mainViewModel = new MainViewModel();
             DataContext = _mainViewModel;
             InitializeComponent();
+            //DisplayRecomendation();
+        }
+
+        private void DisplayRecomendation()
+        {
+     
         }
 
         private void ShowTicketButton_Click(object sender,RoutedEventArgs e)
         {
-           var showTicketViewModel=  new ShowTicketViewModel
+            var showTicketViewModel = new ShowTicketViewModel
             {
                 TicketEvent = _mainViewModel.SelectedTicketEvent,
                 User = _mainViewModel.User
@@ -36,7 +42,7 @@ namespace WpfRecommendarionSystem
         }
         private void ShowRecomendation_Click(object sender,RoutedEventArgs e)
         {
-            textBlockRecomendation_info.Text = _mainViewModel.GetRecomendationString();
+
         }
         private void ticekEventsListView_SelectionChanged(object sender,SelectionChangedEventArgs e)
         {

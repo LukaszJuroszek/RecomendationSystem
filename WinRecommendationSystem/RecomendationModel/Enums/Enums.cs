@@ -8,7 +8,7 @@
     }
     public enum EventCategory
     {
-        Muzka,
+        Muzyka,
         Teatr,
         Sport,
         Rodzina,

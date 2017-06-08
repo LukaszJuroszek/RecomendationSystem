@@ -11,7 +11,11 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView Name="ticekEventsListView"  SelectedItem="{Binding SelectedTicketEvent}" ItemsSource="{Binding TicketEvents, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ticekEventsListView_SelectionChanged" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ListView Name="ticekEventsListView"  SelectedItem="{Binding SelectedTicketEvent}" ItemsSource="{Binding TicketEvents, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ticekEventsListView_SelectionChanged" Grid.RowSpan="2" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
                     <GridView.Columns>
@@ -23,9 +27,26 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBlock x:Name="textBlockTitle" Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" Grid.Column="1" HorizontalAlignment="Left" Margin="90,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="48"></TextBlock>
-        <Button x:Name="showTicketEvent" Click="ShowTicketButton_Click" Content="ShowButton" Grid.Column="1" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBlock x:Name="textBlockRecomendation_info" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="256" Width="326"/>
-        <Button x:Name="showRecomendation" Click="ShowRecomendation_Click" Content="ShowButton" Grid.Column="1" HorizontalAlignment="Left" Margin="261,15,0,0" VerticalAlignment="Top" Width="75"/>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="showTicketEvent"  Grid.Row="0" Click="ShowTicketButton_Click"  Content="showTicketEvent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button x:Name="showRecomendation"   Grid.Row="1" Click="ShowRecomendation_Click" Content="showRecomendation" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBlock x:Name="textBlockTitle" Grid.Row="2"  Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" TextAlignment="Center"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            </TextBlock>
+        </Grid>
+        <ItemsControl x:Name="icProgress" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding UserRecomendation}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                    <TextBlock Text="{Binding Key , Mode=OneWay}" />
+                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Value, Mode=OneWay}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

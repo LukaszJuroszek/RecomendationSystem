@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RecomendationModel.DAL;
 using RecomendationModel.DAL.Entities;
 using RecomendationModel.Entities;
-using RecomendationModel.Enums;
 using RecomendationModel.Model;
 using RecomendationModel.RecommendationEngine;
 using PropertyChanged;
+using RecomendationModel.Enums;
 
 namespace RecomendationModel.ViewModel
 {
@@ -16,6 +15,7 @@ namespace RecomendationModel.ViewModel
     {
         private IUnitOfWork _unitOfWork;
         public IEnumerable<TicketEvent> TicketEvents { get; set; }
+        public IEnumerable<KeyValuePair<EventCategory,double>> UserRecomendation { get { return GetRecomendation(); } }
         public TicketEvent SelectedTicketEvent { get; set; }
         public User User { get; set; }
         private UserRecommendation _userRecommendation;
@@ -58,11 +58,9 @@ namespace RecomendationModel.ViewModel
         {
             return _unitOfWork.TicketEventRepository.Filter(x => x.Id == id).First();
         }
-        public string GetRecomendationString()
-        {
-            _userRecommendation = new UserRecommendation(new RecommendationProfile(User));
-            return   _userRecommendation.ToString();
-        }
+        public string GetRecomendationString() => new UserRecommendation(new RecommendationProfile(User)).ToString();    // refresh user recomendation todo
+
+        public IEnumerable<KeyValuePair<EventCategory,double>> GetRecomendation() => new UserRecommendation(new RecommendationProfile(User)).RecommendedCategories; // refresh user recomendation todo
         public IEnumerable<TicketEvent> GetRemommendedTicketEvents(int count)
         {
             return _userRecommendation.GetRemommendedTicketEvents(TicketEvents,count);
