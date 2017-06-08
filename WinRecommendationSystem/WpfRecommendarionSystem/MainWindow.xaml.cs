@@ -17,14 +17,7 @@ namespace WpfRecommendarionSystem
             _mainViewModel = new MainViewModel();
             DataContext = _mainViewModel;
             InitializeComponent();
-            //DisplayRecomendation();
         }
-
-        private void DisplayRecomendation()
-        {
-     
-        }
-
         private void ShowTicketButton_Click(object sender,RoutedEventArgs e)
         {
             var showTicketViewModel = new ShowTicketViewModel
@@ -39,20 +32,7 @@ namespace WpfRecommendarionSystem
                 _mainViewModel.AddClikedEvent(stv._showClickedTicketViewModel);
                 _mainViewModel.AddOpinion(stv._opinionViewModel);
             }
-        }
-        private void ShowRecomendation_Click(object sender,RoutedEventArgs e)
-        {
-
-        }
-        private void ticekEventsListView_SelectionChanged(object sender,SelectionChangedEventArgs e)
-        {
-            _mainViewModel.SelectedTicketEvent = ticekEventsListView.SelectedValue as TicketEvent;
-            //var stv = new ShowTicketWindow(new ShowTicketViewModel
-            // {
-            //     TicketEvent = _mainViewModel.SelectedTicketEvent,
-            //     User = _mainViewModel.User
-            // });
-            // stv.Visibility = Visibility.Visible;
+            _mainViewModel.UpdateUserRecomendation();
         }
     }
 }

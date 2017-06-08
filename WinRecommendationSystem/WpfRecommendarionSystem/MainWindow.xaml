@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfRecommendarionSystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="700">
+        Title="MainWindow" Height="500" Width="700">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ListView Name="ticekEventsListView"  SelectedItem="{Binding SelectedTicketEvent}" ItemsSource="{Binding TicketEvents, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ticekEventsListView_SelectionChanged" Grid.RowSpan="2" >
+        <ListView Name="ticekEventsListView"  SelectedItem="{Binding SelectedTicketEvent}" ItemsSource="{Binding TicketEvents, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
                     <GridView.Columns>
@@ -34,7 +34,6 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button x:Name="showTicketEvent"  Grid.Row="0" Click="ShowTicketButton_Click"  Content="showTicketEvent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Button x:Name="showRecomendation"   Grid.Row="1" Click="ShowRecomendation_Click" Content="showRecomendation" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <TextBlock x:Name="textBlockTitle" Grid.Row="2"  Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" TextAlignment="Center"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             </TextBlock>
         </Grid>
@@ -43,7 +42,7 @@
                 <DataTemplate>
                     <StackPanel>
                     <TextBlock Text="{Binding Key , Mode=OneWay}" />
-                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Value, Mode=OneWay}" />
+                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Height="10" Value="{Binding Value, Mode=OneWay}" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

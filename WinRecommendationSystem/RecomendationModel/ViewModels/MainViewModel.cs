@@ -15,16 +15,19 @@ namespace RecomendationModel.ViewModel
     {
         private IUnitOfWork _unitOfWork;
         public IEnumerable<TicketEvent> TicketEvents { get; set; }
-        public IEnumerable<KeyValuePair<EventCategory,double>> UserRecomendation { get { return GetRecomendation(); } }
+        public IEnumerable<KeyValuePair<EventCategory,double>> UserRecomendation { get; set; }
         public TicketEvent SelectedTicketEvent { get; set; }
         public User User { get; set; }
-        private UserRecommendation _userRecommendation;
         public MainViewModel()
         {
             _unitOfWork = new UnitOfWork();
             TicketEvents = _unitOfWork.TicketEventRepository.All().ToList();
             User = _unitOfWork.UserRepository.All().First();
-            _userRecommendation = new UserRecommendation(new RecommendationProfile(User));
+            UserRecomendation = new UserRecommendation(new RecommendationProfile(User)).GetRecommendedCategories();
+        }
+        public void UpdateUserRecomendation()
+        {
+            UserRecomendation = new UserRecommendation(new RecommendationProfile(User)).GetRecommendedCategories();
         }
         public void AddOpinion(OpinionViewModel model)
         {
@@ -63,7 +66,7 @@ namespace RecomendationModel.ViewModel
         public IEnumerable<KeyValuePair<EventCategory,double>> GetRecomendation() => new UserRecommendation(new RecommendationProfile(User)).RecommendedCategories; // refresh user recomendation todo
         public IEnumerable<TicketEvent> GetRemommendedTicketEvents(int count)
         {
-            return _userRecommendation.GetRemommendedTicketEvents(TicketEvents,count);
+            return new UserRecommendation(new RecommendationProfile(User)).GetRemommendedTicketEvents(TicketEvents,count);
         }
     }
 }
