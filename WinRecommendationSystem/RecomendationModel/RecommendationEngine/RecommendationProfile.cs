@@ -12,64 +12,63 @@ namespace RecomendationModel.RecommendationEngine
     public class RecommendationProfile
     {
         public User User { get; private set; }
-        public OpinionsStorage Opinions { get; private set; }
-        public List<WatchedEventStorage> WatchedEvents { get; private set; }
-        private IUnitOfWork unitOfWork;
+        public OpinionsStorage UserTicketEventOpinions { get; private set; }
+        public List<TicketEventWatchHistoryStorage> TicketEventWatchHistories{ get; private set; }
+        public int AllTicketEventViewTimes { get; set; }
+        private IUnitOfWork _unitOfWork;
         public RecommendationProfile(User user)
         {
-            unitOfWork = new UnitOfWork();
+            _unitOfWork = new UnitOfWork();
             User = user;
-            Opinions = GetOpinions();
-            WatchedEvents = GetWatchedEvents().ToList();
+            UserTicketEventOpinions = GetUserOpinions(User);
+            TicketEventWatchHistories = GetUserWatchedEvents(User);
+            AllTicketEventViewTimes= TicketEventWatchHistories.Sum(x => x.SumOfAllClickedTicketEvents);
         }
-        private OpinionsStorage GetOpinions()
+        private OpinionsStorage GetUserOpinions(User user)
         {
-            var opinionOfTicketEvent = new Dictionary<TicketEvent, EventOpinion>();
-            var userOpinions = unitOfWork.OpinionRepository
-                .All()
-                .Where(x => x.User.Id == User.Id)
+            var opinionOfTicketEvent = new Dictionary<TicketEvent,EventOpinion>();
+            var userOpinions = _unitOfWork.OpinionRepository
+                .Filter(x => x.User.Id == user.Id)
                 .ToList();
             foreach (var opinion in userOpinions)
             {
-                opinionOfTicketEvent.Add(opinion.TicketEvents, opinion.EventOpinion);
+                opinionOfTicketEvent.Add(opinion.TicketEvents,opinion.EventOpinion);
             }
             return new OpinionsStorage
             {
-                User = User,
                 EventOpinions = opinionOfTicketEvent
             };
         }
-        private IEnumerable<WatchedEventStorage> GetWatchedEvents()
+        private List<TicketEventWatchHistoryStorage> GetUserWatchedEvents(User user)
         {
-            var watchedEvents = new List<WatchedEventStorage>();
-            var userEventis = unitOfWork.ClikedEventRepository
-                .Filter(x => x.User.Id == User.Id)
+            var watchedEvents = new List<TicketEventWatchHistoryStorage>();
+            var userEventis = _unitOfWork.ClikedEventRepository
+                .Filter(x => x.User.Id == user.Id)
                 .GroupBy(x => x.TicketEvent)
                 .Select(x => x.Key)
                 .ToList();
             foreach (var ticketEvent in userEventis)
             {
-                watchedEvents.Add(new WatchedEventStorage(User, ticketEvent));
+                watchedEvents.Add(new TicketEventWatchHistoryStorage(user,ticketEvent));
             }
             return watchedEvents;
         }
-        public double GetPercentTicketEventsRatioFromAllTicketEvents(TicketEvent te)
+        public double GetPercentTicketEventsRatioFromAllTicketEvents(TicketEvent ticketEvent)
         {
-            if (WatchedEvents.FindIndex(item => item.TicketEvent.Id == te.Id) != 0)
+            if (TicketEventWatchHistories.FindIndex(item => item.TicketEvent.Id == ticketEvent.Id) != 0)
             {
-                var teViewsCount = WatchedEvents
-                    .Where(x => x.TicketEvent.Id == te.Id)
-                    .First().SumAllClickedTicketEvents();
-                var allViews = WatchedEvents.Sum(x => x.SumAllClickedTicketEvents());
-                return ((double)teViewsCount / allViews) * 100;
+                var teViewsCount = TicketEventWatchHistories
+                    .Where(x => x.TicketEvent.Id == ticketEvent.Id)
+                    .First().SumOfAllClickedTicketEvents;
+                return ( (double)teViewsCount / AllTicketEventViewTimes ) * 100;
             }
             return 0.0;
         }
         public string AnalysisToString()
         {
             var sb = new StringBuilder();
-            sb.Append(Opinions.ToString());
-            foreach (var item in WatchedEvents)
+            sb.Append(UserTicketEventOpinions.ToString());
+            foreach (var item in TicketEventWatchHistories)
             {
                 sb.Append(item.ToString());
             }

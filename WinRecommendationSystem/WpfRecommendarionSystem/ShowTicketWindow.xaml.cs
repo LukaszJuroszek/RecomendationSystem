@@ -16,7 +16,6 @@ namespace WpfRecommendarionSystem
         {
             InitializeComponent();
             DataContext = showTicketViewModel;
-            InitializeComponent();
             _showClickedTicketViewModel = new ShowClickedTicketViewModel
             {
                 WhenClicked = DateTime.Now,

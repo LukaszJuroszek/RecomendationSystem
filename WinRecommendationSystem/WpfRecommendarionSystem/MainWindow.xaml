@@ -37,7 +37,7 @@
             <TextBlock x:Name="textBlockTitle" Grid.Row="2"  Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" TextAlignment="Center"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             </TextBlock>
         </Grid>
-        <ItemsControl x:Name="icProgress" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding UserRecomendation}">
+        <ItemsControl x:Name="icProgress" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding UserRecommendation}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>

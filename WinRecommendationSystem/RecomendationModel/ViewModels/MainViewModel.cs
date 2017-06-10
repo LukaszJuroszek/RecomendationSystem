@@ -15,7 +15,7 @@ namespace RecomendationModel.ViewModel
     {
         private IUnitOfWork _unitOfWork;
         public IEnumerable<TicketEvent> TicketEvents { get; set; }
-        public IEnumerable<KeyValuePair<EventCategory,double>> UserRecomendation { get; set; }
+        public List<KeyValuePair<EventCategory,double>> UserRecommendation { get; set; }
         public TicketEvent SelectedTicketEvent { get; set; }
         public User User { get; set; }
         public MainViewModel()
@@ -23,11 +23,11 @@ namespace RecomendationModel.ViewModel
             _unitOfWork = new UnitOfWork();
             TicketEvents = _unitOfWork.TicketEventRepository.All().ToList();
             User = _unitOfWork.UserRepository.All().First();
-            UserRecomendation = new UserRecommendation(new RecommendationProfile(User)).GetRecommendedCategories();
+            UserRecommendation = GetUserRecommendation();
         }
-        public void UpdateUserRecomendation()
+        public List<KeyValuePair<EventCategory,double>> GetUserRecommendation()
         {
-            UserRecomendation = new UserRecommendation(new RecommendationProfile(User)).GetRecommendedCategories();
+            return new UserRecommendation(new RecommendationProfile(User)).RecommendedCategories.ToList();;
         }
         public void AddOpinion(OpinionViewModel model)
         {

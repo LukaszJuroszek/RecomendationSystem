@@ -13,23 +13,21 @@ namespace RecomendationModel.RecommendationEngine
     public class UserRecommendation
     {
         public IList<KeyValuePair<EventCategory,RecommendationState>> EventCategoryRecommendationState { get; private set; }
-        public IList<KeyValuePair<EventCategory,double>> RecommendedCategories { get; private set; }
-        private UnitOfWork unitOfwork;
-        private RecommendationProfile recommendationProfile;
-        private static readonly Random random = new Random();
-        private static readonly object syncLock = new object();
+        public IEnumerable<KeyValuePair<EventCategory,double>> RecommendedCategories { get; private set; }
+        private RecommendationProfile _recommendationProfile;
+        private static readonly Random _random = new Random();
+        private static readonly object _syncLock = new object();
 
         public UserRecommendation(RecommendationProfile recommendationProfile)
         {
-            unitOfwork = new UnitOfWork();
-            this.recommendationProfile = recommendationProfile;
+            _recommendationProfile = recommendationProfile;
             EventCategoryRecommendationState = GetEventCategoryRecommendationState().ToList();
             RecommendedCategories = GetRecommendedCategories();
         }
         public IEnumerable<KeyValuePair<EventCategory,RecommendationState>> GetEventCategoryRecommendationState()
         {
             var recCat = new List<KeyValuePair<EventCategory,RecommendationState>>();
-            foreach (KeyValuePair<TicketEvent,EventOpinion> item in recommendationProfile.Opinions.EventOpinions)
+            foreach (KeyValuePair<TicketEvent,EventOpinion> item in _recommendationProfile.UserTicketEventOpinions.EventOpinions)
             {
                 if (item.Value.Equals(EventOpinion.Like))
                 {
@@ -41,7 +39,7 @@ namespace RecomendationModel.RecommendationEngine
                 }
                 else
                 {
-                    if (recommendationProfile.GetPercentTicketEventsRatioFromAllTicketEvents(item.Key) > 5.0)
+                    if (_recommendationProfile.GetPercentTicketEventsRatioFromAllTicketEvents(item.Key) > 5.0)
                         recCat.Add(new KeyValuePair<EventCategory,RecommendationState>(item.Key.EventCategory,RecommendationState.Recommended));
                     else
                         recCat.Add(new KeyValuePair<EventCategory,RecommendationState>(item.Key.EventCategory,RecommendationState.NotRecommended));
@@ -49,7 +47,7 @@ namespace RecomendationModel.RecommendationEngine
             }
             return recCat;
         }
-        public IList<KeyValuePair<EventCategory,double>> GetRecommendedCategories()
+        public IEnumerable<KeyValuePair<EventCategory,double>> GetRecommendedCategories()
         {
             var recomCat = new List<KeyValuePair<EventCategory,double>>();
             foreach (EventCategory eventCategory in Enum.GetValues(typeof(EventCategory)))
@@ -58,7 +56,7 @@ namespace RecomendationModel.RecommendationEngine
             }
             return recomCat;
         }
-        public IList<EventCategory> GetEventsCategoriesBasedOnRecommendCategories(int count)
+        public List<EventCategory> GetEventsCategoriesBasedOnRecommendCategories(int count)
         {
             var result = new List<EventCategory>();
             for (int i = 0;i < count;i++)
@@ -82,9 +80,9 @@ namespace RecomendationModel.RecommendationEngine
         }
         private double GetRandomNumber(double minimum,double maximum)
         {
-            lock (syncLock)
+            lock (_syncLock)
             { // synchronize
-                return random.NextDouble() * ( maximum - minimum ) + minimum;
+                return _random.NextDouble() * ( maximum - minimum ) + minimum;
             }
         }
         private double RecommendedPercentRatio(EventCategory eventCategory)
@@ -114,9 +112,9 @@ namespace RecomendationModel.RecommendationEngine
         }
         public static int RandomNumber(int min,int max)
         {
-            lock (syncLock)
+            lock (_syncLock)
             { // synchronize
-                return random.Next(min,max);
+                return _random.Next(min,max);
             }
         }
         public IEnumerable<TicketEvent> GetRemommendedTicketEvents(IEnumerable<TicketEvent> ticketEvents,int count)
@@ -146,11 +144,11 @@ namespace RecomendationModel.RecommendationEngine
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{recommendationProfile.User.Name} ");
+            sb.AppendLine($"{_recommendationProfile.User.Name} ");
             //sb.AppendLine($"{RecommendationCategoriesToString()} ");
-            for (int i = 0;i < RecommendedCategories.Count();i++)
+            foreach (var item in RecommendedCategories)
             {
-                sb.AppendLine($"{RecommendedCategories[i].Key.ToString()} has {RecommendedCategories[i].Value} % recomended ratio ");
+                sb.AppendLine($"{item.Key.ToString()} has {item.Value} % recomended ratio ");
             }
             return sb.ToString();
         }
