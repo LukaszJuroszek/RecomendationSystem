@@ -70,7 +70,7 @@ namespace WinRecomendationSystem
         {
             if (allOrRecomended)
             {
-                ViewEvents(_mainViewModel.GetRemommendedTicketEvents(15));
+                ViewEvents(_mainViewModel.GetRemommendedTicketEvents());
                 textBox1.Text = _mainViewModel.GetRecomendationString();
                 allOrRecomended = false;
             }

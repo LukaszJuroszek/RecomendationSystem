@@ -34,6 +34,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button x:Name="showTicketEvent"  Grid.Row="0" Click="ShowTicketButton_Click"  Content="showTicketEvent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button x:Name="showRecommendedTicketEvent"  Grid.Row="1" Click="ShowRecommendedTicketEvent_Click"  Content="showRecommendedTicketEvent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <TextBlock x:Name="textBlockTitle" Grid.Row="2"  Text="{Binding ElementName=ticekEventsListView, Path=SelectedItem.Id}" TextAlignment="Center"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             </TextBlock>
         </Grid>
